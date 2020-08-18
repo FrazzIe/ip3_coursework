@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/FrazzIe/ip3_coursework/issues"
   },
-  "homepage": "https://github.com/FrazzIe/ip3_coursework#readme"
+  "homepage": "https://github.com/FrazzIe/ip3_coursework#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
 }
