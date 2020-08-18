@@ -5,6 +5,8 @@ const mustache = require("mustache-express");
 const session = require("express-session");
 const passport = require("passport");
 const bodyParser = require('body-parser');
+const argon2 = require("argon2");
+const auth = require("./models/auth")(mysql, passport, argon2);
 
 var app = express(); //init express app
 
