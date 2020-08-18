@@ -3,7 +3,7 @@ const config = require("../config"); //import dependencies
 
 var pool = mysql.createPool(config.mysql); //create connection pool
 var queries = { //list of mysql queries
-
+	getUser: "SELECT users.id, users.username, users.password, users.admin, UNIX_TIMESTAMP(users.created_at) FROM users WHERE users.username = ?",
 }
 
 function execute(sql, params) { //asynchronous sql execute function
