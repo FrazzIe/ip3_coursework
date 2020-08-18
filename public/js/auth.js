@@ -5,7 +5,7 @@ authForm.addEventListener("submit", (event) => { //add a listener for when the f
 
 	let action = event.submitter.id.replace("auth-", ""); //get the action type from the button pressed
 
-	if (action != "login" || action != "register")
+	if (action != "login" && action != "register")
 		return; //cancel if action type is invalid
 
 	axios.post("/" + action, { //make a request to the server
