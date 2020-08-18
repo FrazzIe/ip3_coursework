@@ -36,4 +36,24 @@ app.get("/", function(req, res) {
 			title: "Authentication",
 		})
 	}
+
+app.post("/login", (req, res, next) => {   //When /login is requested by a user
+	passport.authenticate("local", (err, user, info) => { // models/auth.js -> use strategy to validate user login credentials
+		if (err) { //if there is an error then
+			return next(err);
+		}
+
+		if (!user) { //if the profile does not exist then
+			return res.send(info.message); //refuse login
+		}
+
+		req.login(user, function(err) { //login user
+			if (err) { 
+				return next(err);
+			}
+
+			return res.send("ok");
+		});
+	})(req, res, next);
+});
 });
