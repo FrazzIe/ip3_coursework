@@ -3,6 +3,7 @@ const mysql = require("./models/mysql");
 const express = require("express");
 const mustache = require("mustache-express");
 const session = require("express-session");
+const passport = require("passport");
 
 var app = express(); //init express app
 
@@ -13,6 +14,8 @@ app.set("views", __dirname + "/public/views"); //setup mustache
 app.use(session({
 	secret: config.session.secret,
 })); //setup session
+app.use(passport.initialize());
+app.use(passport.session()); //setup passport session
 
 app.listen(config.app.port, () => { //make app listen for port
 	console.log("quiz_manager listening on port " + config.app.port);
