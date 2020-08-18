@@ -6,7 +6,7 @@ if (dotenv.error) { //throw an error if the environment vars failed to load
 
 const config = {
     app: {
-        port: provess.env.PORT || 3000
+        port: process.env.PORT || 3000
     }
 }
 
