@@ -4,6 +4,7 @@ const mustache = require("mustache-express");
 
 var app = express(); //init express app
 
+app.use(express.static(__dirname + "/public")); //serve static files
 app.engine("mustache", mustache(__dirname + "/public/views/partials"));
 app.set("view engine", "mustache");
 app.set("views", __dirname + "/public/views"); //setup mustache
