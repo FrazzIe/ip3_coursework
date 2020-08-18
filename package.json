@@ -1,0 +1,26 @@
+{
+  "name": "quiz_manager",
+  "version": "1.0.0",
+  "description": "create, complete and manage quizzes",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon -e js,mustache,css ./app.js",
+    "start": "node ./app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FrazzIe/ip3_coursework.git"
+  },
+  "keywords": [
+    "quiz",
+    "manager",
+    "creator",
+    "admin"
+  ],
+  "author": "Fraser Watt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FrazzIe/ip3_coursework/issues"
+  },
+  "homepage": "https://github.com/FrazzIe/ip3_coursework#readme"
+}
