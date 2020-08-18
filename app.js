@@ -13,6 +13,8 @@ app.set("view engine", "mustache");
 app.set("views", __dirname + "/public/views"); //setup mustache
 app.use(session({
 	secret: config.session.secret,
+	resave: false,
+	saveUninitialized: false
 })); //setup session
 app.use(passport.initialize());
 app.use(passport.session()); //setup passport session
