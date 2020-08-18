@@ -3,7 +3,7 @@ const authForm = document.getElementById("auth-form"); //get auth-form element
 authForm.addEventListener("submit", (event) => { //add a listener for when the form is submitted
 	event.preventDefault(); //prevent default form behaviour
 
-	let action = event.submitter.id.replace("auth-").replace("-btn"); //get the action type from the button pressed
+	let action = event.submitter.id.replace("auth-", ""); //get the action type from the button pressed
 
 	if (action != "login" || action != "register")
 		return; //cancel if action type is invalid
