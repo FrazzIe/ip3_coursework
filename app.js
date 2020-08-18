@@ -56,4 +56,30 @@ app.post("/login", (req, res, next) => {   //When /login is requested by a user
 		});
 	})(req, res, next);
 });
+  
+app.post("/register", function(req, res) {
+	if (req.body && req.body.username && req.body.password && req.body.username != "" && req.body.password != "") {
+		mysql.query(mysql.queries.getUser, [req.body.username]).then((result) => { //finds any rows with the username
+			if (typeof result[0] === "undefined") { //checks if a user does not exist
+				argon2.hash(req.body.password).then((hashedPassword) => { //scrambles the password using argon2
+					mysql.query(mysql.queries.createUser, [req.body.username, hashedPassword]).then((result) => { //creates user account in database
+						res.send("ok");
+					}).catch((error) => {
+						res.status(500).send(error.message);
+						console.log(error.message);
+					});
+				}).catch((error) => {
+					res.status(500).send(error.message);
+				});
+			} else { //prevents registeration as user already exists
+				res.send("A user already exists with this username");
+			}
+		}).catch((error) => {
+			console.log(error.message);
+			res.status(500).send(error.message);
+		});
+	} else {
+		res.send("You must include a username and a password")
+	}
+});
 });
