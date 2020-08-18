@@ -36,6 +36,7 @@ app.get("/", function(req, res) {
 			title: "Authentication",
 		})
 	}
+});
 
 app.post("/login", (req, res, next) => {   //When /login is requested by a user
 	passport.authenticate("local", (err, user, info) => { // models/auth.js -> use strategy to validate user login credentials
@@ -82,4 +83,8 @@ app.post("/register", function(req, res) {
 		res.send("You must include a username and a password")
 	}
 });
+
+app.get("/logout", function(req, res) {
+	req.logout();
+	res.redirect("/");
 });
