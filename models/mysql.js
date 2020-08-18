@@ -1,8 +1,7 @@
-var mysql = require("mysql");
-var config = require("../config"); //import dependencies
+const mysql = require("mysql");
+const config = require("../config"); //import dependencies
 
 var pool = mysql.createPool(config.mysql); //create connection pool
-
 var queries = { //list of mysql queries
 
 }
