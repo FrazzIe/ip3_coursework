@@ -4,5 +4,5 @@ const express = require("express");
 var app = express(); //init express app
 
 app.listen(config.app.port, () => { //make app listen for port
-	console.log("Coursework scheduler listening on port " + config.app.port);
+	console.log("quiz_manager listening on port " + config.app.port);
 })
