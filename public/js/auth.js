@@ -13,7 +13,11 @@ authForm.addEventListener("submit", (event) => { //add a listener for when the f
 		password: document.getElementById("auth-password").value,
 	}).then((resp) => {
 		if (resp.data) {
-			window.location.href = "/"; //reload page on response
+			if (resp.data != "ok") {
+				console.log(resp.data) //display warning
+			} else {
+				window.location.href = "/"; //reload page on response
+			}			
 		}
 	}).catch((error) => {
 		console.log(error);
