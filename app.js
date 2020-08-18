@@ -24,3 +24,14 @@ app.use(bodyParser.json()); //parse json requests
 app.listen(config.app.port, () => { //make app listen for port
 	console.log("quiz_manager listening on port " + config.app.port);
 });
+
+app.get("/", function(req, res) {
+	res.status(200);
+	
+	if (req.isAuthenticated()) {
+	} else {
+		res.render("auth", {
+			title: "Authentication",
+		})
+	}
+});
