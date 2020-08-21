@@ -36,9 +36,6 @@ app.get("/", function(req, res) {
 			username: req.user.username,
 			admin: req.user.admin,
 			quizzes: [],
-			calcQuizTime: function(count, minutes) { //func to calulate an estimate of how long a quiz will take to complete based on the amount of questions and the number of minutes to complete 1 questions
-				return count * minutes
-			}
 		}
 
 		mysql.query(mysql.queries.getQuizzes, []).then((result) => { //fetch quizzes
