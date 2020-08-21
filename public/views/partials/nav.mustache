@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+	<a class="navbar-brand" href="/">
+		Quiz Manager
+	</a>
+
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-toggler" aria-controls="nav-toggler" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="nav-toggler">
+		<div class="row ml-auto">
+			<div class="col">
+			{{#username}}
+				<span class="navbar-text">{{ username }}</span>
+			{{/username}}
+			{{^username}}
+				<span class="navbar-text">Unknown</span>
+			{{/username}}
+			</div>
+			<div class="col">
+				<form class="form-inline my-2 my-lg-0" id="logout-form" action="/logout" method="get">
+					<button type="submit" class="btn btn-danger">Logout</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</nav>
