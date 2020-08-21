@@ -31,10 +31,15 @@ app.get("/", function(req, res) {
 	res.status(200);
 	
 	if (req.isAuthenticated()) {
+		res.render("home", {
+			title: "Home",
+			username: req.user.username,
+			admin: req.user.admin,
+		});
 	} else {
 		res.render("auth", {
 			title: "Authentication",
-		})
+		});
 	}
 });
 
