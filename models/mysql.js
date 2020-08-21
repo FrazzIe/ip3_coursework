@@ -5,6 +5,7 @@ var pool = mysql.createPool(config.mysql); //create connection pool
 var queries = { //list of mysql queries
 	getUser: "SELECT users.id, users.username, users.password, users.admin, UNIX_TIMESTAMP(users.created_at) FROM users WHERE users.username = ?",
 	createUser: "INSERT INTO users (`username`, `password`) VALUES (?, ?)",
+	getQuizzes: "SELECT quiz.id, quiz.label, (SELECT COUNT(questions.id) FROM questions WHERE questions.quiz_id = quiz.id) AS 'questions' FROM quiz",
 }
 
 function execute(sql, params) { //asynchronous sql execute function
