@@ -72,7 +72,7 @@ app.post("/register", function(req, res) {
 				}).catch((error) => {
 					res.status(500).send(error.message);
 				});
-			} else { //prevents registeration as user already exists
+			} else { //prevents registration as user already exists
 				res.send("A user already exists with this username");
 			}
 		}).catch((error) => {
