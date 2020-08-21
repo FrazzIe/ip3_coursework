@@ -31,10 +31,19 @@ app.get("/", function(req, res) {
 	res.status(200);
 	
 	if (req.isAuthenticated()) {
-		res.render("home", {
+		let data = {
 			title: "Home",
 			username: req.user.username,
 			admin: req.user.admin,
+			quizzes: [],
+		}
+
+		mysql.query(mysql.queries.getQuizzes, []).then((result) => { //fetch quizzes
+			data.quizzes = result;
+			res.render("home", data);
+		}).catch((error) => {
+			res.render("home", data);
+			console.log(error.message);
 		});
 	} else {
 		res.render("auth", {
