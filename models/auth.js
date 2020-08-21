@@ -12,6 +12,8 @@ module.exports = function(mysql, passport, argon2) {
 			if (typeof result[0] !== "undefined") { //found user
 				argon2.verify(result[0].password, password).then((matches) => {
 					if (matches) { //password matches
+						result[0].admin = result[0].admin == 1 ? true : false;
+
 						cb(null, result[0], {
 							message: "ok"
 						});
@@ -47,6 +49,8 @@ module.exports = function(mysql, passport, argon2) {
 	passport.deserializeUser(function(username, cb) {
 		mysql.query(mysql.queries.getUser, [username]).then((result) => { //find user
 			if (typeof result[0] !== "undefined") { //found user
+				result[0].admin = result[0].admin == 1 ? true : false;
+				
 				cb(null, result[0]);
 			} else { //not found user
 				cb(null, false);
