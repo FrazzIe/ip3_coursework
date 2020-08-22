@@ -104,10 +104,10 @@ app.get("/logout", function(req, res) {
 });
 
 app.post("/create", function(req, res) {
-	if (req.isAuthenticated()) {
-		if (req.user.admin) {
-			if (req.body && req.body.label && req.body.label != "") {
-				mysql.query(mysql.queries.createQuiz, [req.user.id, req.body.label]).then((result) => {				
+	if (req.isAuthenticated()) { //check if logged in
+		if (req.user.admin) { //check if admin
+			if (req.body && req.body.label && req.body.label != "") { //check if params exist
+				mysql.query(mysql.queries.createQuiz, [req.user.id, req.body.label]).then((result) => { //create quiz		
 					res.send(result.insertId);
 				}).catch((error) => {
 					console.log(error.message);
@@ -120,9 +120,7 @@ app.post("/create", function(req, res) {
 			res.send("Only admins can create quizzes");
 		}
 	} else {
-		res.render("auth", {
-			title: "Authentication",
-		});
+		res.redirect("/");
 	}
 });
 
