@@ -42,6 +42,7 @@ function addAnswerToList(elemPrefix, answerData) {
 
 	if (answerData) {
 		answerNode.setAttribute("data-answer-id", answerData.id);
+		answerNode.setAttribute("data-delete", false);
 		answerLabel =  answerData.label;
 		answerCheckbox = answerData.is_correct == 1;
 	}
