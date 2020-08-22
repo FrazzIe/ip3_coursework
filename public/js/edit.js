@@ -21,7 +21,7 @@
 */
 
 const createForm = document.getElementById("create-form");
-const editFrom = document.getElementById("edit-form");
+const editForm = document.getElementById("edit-form");
 
 function removeAnswerFromList(answerNode) {
 	answerNode.remove();
