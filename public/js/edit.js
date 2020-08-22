@@ -178,7 +178,7 @@ function editQuestion(id) {
 				} else {
 					$("#loaderModal").modal("hide");
 					document.getElementById("edit-label").value = resp.data.question.label;
-
+					document.getElementById("edit-label").dataset.id = resp.data.question.id;
 					for (let answer = 0; answer < resp.data.answers.length; answer++) {
 						addAnswerToList("edit", resp.data.answers[answer]);
 					}
