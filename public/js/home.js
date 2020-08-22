@@ -32,12 +32,12 @@ setQuizPercentages();
 createForm.addEventListener("submit", function(event) { //add a listener for when the form is submitted
 	event.preventDefault(); //prevent default form behaviour
 
-	axios.post("/create", { //make a request to the server
+	axios.post("/quiz/create", { //make a request to the server
 		label: document.getElementById("create-label").value,
 	}).then((resp) => {
 		if (resp.data) {
 			if (typeof resp.data != "string") {
-				window.location.href = "/edit/" + resp.data;
+				window.location.href = "/quiz/edit/" + resp.data;
 			} else {
 				$("#errorModalTitle").text("An error occurred");
 				$("#errorModalText").text(resp.data);
