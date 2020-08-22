@@ -110,9 +110,12 @@ function addAnswerToList(elemPrefix, answerData) {
 	answerList.appendChild(answerNode);
 }
 
-function getAnswers() {
-	let answers = [];
-	let answerList = document.getElementById("create-answers-list");    
+function getAnswers(elemPrefix) {
+	let newAnswers = [];
+	let deletedAnswers = [];
+	let changedAnswers = [];
+	
+	let answerList = document.getElementById(elemPrefix + "-answers-list");    
 
 	if (answerList.hasChildNodes()) {
 		let children = answerList.childNodes;
@@ -120,16 +123,28 @@ function getAnswers() {
 		for (let i = 0; i < children.length; i++) {
 			if (children[i].dataset) {
 				if (children[i].dataset.id) {
-					answers.push({
-						label: document.getElementById("create-answer-" + children[i].dataset.id).value,
-						correct: document.getElementById("create-answer-checkbox-" + children[i].dataset.id).checked,
-					});
+					if (children[i].dataset["answer-id"]) {
+						if (children[i].dataset.delete == "true") {
+							deletedAnswers.push(children[i].dataset["answer-id"]);
+						} else {
+							changedAnswers.push({
+								id: children[i].dataset["answer-id"],
+								label: document.getElementById(elemPrefix + "-answer-" + children[i].dataset.id).value,
+								correct: document.getElementById(elemPrefix + "-answer-checkbox-" + children[i].dataset.id).checked,
+							})
+						}
+					} else {
+						newAnswers.push({
+							label: document.getElementById(elemPrefix + "-answer-" + children[i].dataset.id).value,
+							correct: document.getElementById(elemPrefix + "-answer-checkbox-" + children[i].dataset.id).checked,
+						});
+					}
 				}
 			}
 		}
 	}
 
-	return answers;
+	return [newAnswers, deleteAnswers, changedAnswers];
 }
 
 createForm.addEventListener("submit", function(event) { //add a listener for when the form is submitted
