@@ -22,8 +22,8 @@
 
 const createForm = document.getElementById("create-form");
 
-function removeAnswerFromList(element) {
-	element.remove();
+function removeAnswerFromList(answerNode) {
+	answerNode.remove();
 }
 
 function addAnswerToList(elemPrefix, answerData) {
