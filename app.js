@@ -120,7 +120,7 @@ app.get("/logout", function(req, res) {
 	res.redirect("/");
 });
 
-app.post("/create", function(req, res) {
+app.post("/quiz/create", function(req, res) {
 	if (req.isAuthenticated()) { //check if logged in
 		if (req.user.admin) { //check if admin
 			if (req.body && req.body.label && req.body.label != "") { //check if params exist
@@ -147,7 +147,7 @@ app.get("/quiz/delete/:id", function(req, res) {
 			res.redirect("/");
 			return;
 		}
-		
+
 		mysql.query(mysql.queries.deleteQuiz, [req.params.id]).then((result) => { //fetch answers
 			res.redirect("/");
 		}).catch((error) => {
