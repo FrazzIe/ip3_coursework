@@ -262,3 +262,33 @@ app.post("/quiz/edit/:id/create", function(req, res) {
 		res.redirect("/");
 	}
 });
+
+app.get("/quiz/edit/:quiz/fetch/:id", function(req, res) {
+	if (req.isAuthenticated() && req.user.admin) { //check if logged in & is admin
+		if (!req.params.id || isNaN(req.params.id) || !req.params.quiz || isNaN(req.params.quiz)) { //check if params exist
+			res.redirect("/");
+			return;
+		}
+
+		mysql.query(mysql.queries.getQuestion, [req.params.id]).then((question) => { //delete question
+			if (typeof question[0] === "undefined") {
+				res.redirect("/quiz/edit/" + quiz);
+			} else {
+				mysql.query(mysql.queries.getAnswers, [req.params.id]).then((answers) => { //delete question
+					res.send({
+						question: question[0],
+						answers: answers,
+					})
+				}).catch((error) => {
+					console.log(error.message);
+					res.redirect("/quiz/edit/" + quiz);
+				})
+			}
+		}).catch((error) => {
+			console.log(error.message);
+			res.redirect("/quiz/edit/" + quiz);
+		})
+	} else {
+		res.redirect("/");
+	}
+});
