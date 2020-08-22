@@ -141,7 +141,7 @@ app.post("/create", function(req, res) {
 	}
 });
 
-app.get("/edit/:id", function(req, res) {
+app.get("quiz/edit/:id", function(req, res) {
 	if (req.isAuthenticated() && req.user.admin) { //check if logged in & is admin
 		if (!req.params.id || isNaN(req.params.id)) { //check if params exist
 			res.redirect("/");
