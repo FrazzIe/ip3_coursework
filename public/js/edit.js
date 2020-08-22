@@ -26,8 +26,8 @@ function removeAnswerFromList(element) {
 	element.remove();
 }
 
-function addAnswerToList(increment, answerData) {
-	let answerList = document.getElementById("create-answers-list-" + increment);
+function addAnswerToList(elemPrefix, answerData) {
+	let answerList = document.getElementById(elemPrefix + "-answers-list");
 	let num = 0;
 
 	if (answerList.lastElementChild != null) {
