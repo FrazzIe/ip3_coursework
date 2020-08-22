@@ -20,6 +20,8 @@
 </div>
 */
 
+const createForm = document.getElementById("create-form");
+
 function removeAnswerFromList(element) {
     element.remove();
 }
@@ -97,3 +99,32 @@ function getAnswers() {
 
     return answers;
 }
+
+createForm.addEventListener("submit", function(event) { //add a listener for when the form is submitted
+	event.preventDefault(); //prevent default form behaviour
+
+    let quizElement = document.getElementById("quiz_id");
+
+    if (!quizElement.dataset || !quizElement.dataset.id) {
+        location.reload();
+        return;
+    }
+
+	axios.post("/quiz/edit/" + quizElement.dataset.id + "/create/", { //make a request to the server
+        label: document.getElementById("create-label").value,
+        answers: getAnswers(),
+	}).then((resp) => {
+		if (resp.data) {
+			if (typeof resp.data != "string") {
+				window.location.href = "/quiz/edit/" + resp.data;
+			} else {
+                $("#create-modal").modal("hide");
+				$("#errorModalTitle").text("An error occurred");
+				$("#errorModalText").text(resp.data);
+				$("#errorModal").modal("show"); //display warning
+			}
+		}
+	}).catch((error) => {
+		console.log(error);
+	});
+});
