@@ -41,6 +41,7 @@
 					<div class="card-body">
 						<div class="card-text">
 							<div class="card-text">
+								The {{ label }} quiz contains {{ questions }} question(s) and will take an estimated <span id="estimation-{{ id }}" data-count="{{ questions }}"></span> to complete.
 							</div>
 						</div>
 					</div>
@@ -51,4 +52,5 @@
 	</div>
 
 	{{>footer}}
+	<script src="/../../js/home.js"></script>
 </body>
