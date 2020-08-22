@@ -16,6 +16,7 @@ var queries = { //list of mysql queries
 	deleteQuestion: "DELETE FROM questions WHERE question.id = ?",
 	getAnswers: "SELECT answers.id, answers.question_id, answers.label, answers.is_correct FROM answers JOIN questions ON (answers.question_id = questions.id) WHERE questions.quiz_id = ?",
 	createAnswers: "INSERT INTO answers (`question_id`, `label`, `is_correct`) VALUES ?",
+	deleteAnswers: "DELETE FROM answers WHERE answers.id IN (?)",
 }
 
 function execute(sql, params) { //asynchronous sql execute function
