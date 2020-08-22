@@ -96,8 +96,8 @@
 							<div class="col-sm-6">
 								<div class="float-right">
 								{{#admin}}
-									<button type="button" class="btn btn-info">Edit</button>
-									<button type="button" class="btn btn-danger">Delete</button>
+									<a href="/quiz/edit/{{ id }}" class="btn btn-info">Edit</a>
+									<a href="/quiz/delete/{{ id }}" class="btn btn-danger">Delete</a>
 								{{/admin}}
 								{{^admin}}
 									{{#questions_answered}}
