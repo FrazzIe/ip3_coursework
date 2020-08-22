@@ -102,3 +102,22 @@ app.get("/logout", function(req, res) {
 	req.logout();
 	res.redirect("/");
 });
+
+app.post("/create", function(req, res) {
+	if (req.isAuthenticated()) {
+		if (req.body && req.body.label && req.body.label != "") {
+			mysql.query(mysql.queries.createQuiz, [req.user.id, req.body.label]).then((result) => {				
+				res.send(result.insertId);
+			}).catch((error) => {
+				console.log(error.message);
+				res.status(500).send(error.message);
+			})
+		} else {
+			res.send("You must include a title");
+		}
+	} else {
+		res.render("auth", {
+			title: "Authentication",
+		});
+	}
+});
