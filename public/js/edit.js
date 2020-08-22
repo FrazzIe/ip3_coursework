@@ -103,7 +103,7 @@ function getAnswers() {
 createForm.addEventListener("submit", function(event) { //add a listener for when the form is submitted
 	event.preventDefault(); //prevent default form behaviour
 
-    let quizElement = document.getElementById("quiz_id");
+    let quizElement = document.getElementById("quiz-id");
 
     if (!quizElement.dataset || !quizElement.dataset.id) {
         location.reload();
