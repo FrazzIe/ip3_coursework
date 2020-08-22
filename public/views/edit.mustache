@@ -1,5 +1,6 @@
 <head>
 	{{>header}}
+	<link rel="stylesheet" href="/../../css/style.css">
 </head>
 
 <body>
@@ -34,6 +35,19 @@
 												<div class="form-group">
 													<label for="create-label">Question</label>
 													<input type="text" class="form-control" id="create-label">
+												</div>
+												<div class="form-group">
+													<div class="row align-items-center">
+														<div class="col-6">
+															<label class="mt-2">Answers List</label>
+														</div>
+														<div class="col-6">
+															<button type="button" class="btn btn-success btn-sm float-right" onclick="addAnswerToList()">Add</button>
+														</div>
+													</div>
+												</div>
+												<div id="create-answers-list" class="answers-content scroll-bar">
+
 												</div>
 											</div>
 											<div class="modal-footer">
@@ -86,4 +100,5 @@
 	</div>
 
 	{{>footer}}
+	<script src="/../../js/edit.js"></script>
 </body>
