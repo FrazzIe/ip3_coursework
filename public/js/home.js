@@ -22,7 +22,7 @@ function setQuizEstimations() {
 function setQuizPercentages() {
 	let elements = document.querySelectorAll("span[id^='percentage-']");
 	elements.forEach(function(element) {
-		element.textContent = (element.dataset.score / element.dataset.count * 100) + "%";
+		element.textContent = Math.floor(element.dataset.score / element.dataset.count * 100) + "%";
 	});
 }
 
