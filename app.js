@@ -38,7 +38,7 @@ app.get("/", function(req, res) {
 			quizzes: [],
 		}
 
-		mysql.query(mysql.queries.getQuizzes, []).then((result) => { //fetch quizzes
+		mysql.query(mysql.queries.getQuizzes, [req.user.id]).then((result) => { //fetch quizzes
 			data.quizzes = result;
 			res.render("home", data);
 		}).catch((error) => {
