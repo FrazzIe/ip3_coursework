@@ -64,7 +64,7 @@ function addAnswerToList(elemPrefix, answerData) {
 	answerNode.childNodes[0].childNodes[1].childNodes[0].childNodes[0].classList.add("form-check-input");
 	answerNode.childNodes[0].childNodes[1].childNodes[0].childNodes[0].setAttribute("id", checkboxId);
 	answerNode.childNodes[0].childNodes[1].childNodes[0].childNodes[0].setAttribute("type", "checkbox");
-	answerNode.childNodes[0].childNodes[1].childNodes[0].childNodes[0].setAttribute("checked", answerCheckbox);
+	answerNode.childNodes[0].childNodes[1].childNodes[0].childNodes[0].checked = answerCheckbox;
 	answerNode.childNodes[0].childNodes[1].childNodes[0].appendChild(document.createElement("label"));    
 	answerNode.childNodes[0].childNodes[1].childNodes[0].childNodes[1].classList.add("form-check-label");
 	answerNode.childNodes[0].childNodes[1].childNodes[0].childNodes[1].setAttribute("for", checkboxId);
