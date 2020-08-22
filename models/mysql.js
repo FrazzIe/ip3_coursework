@@ -8,6 +8,7 @@ var queries = { //list of mysql queries
 	getQuizzes: "SELECT quiz.id, quiz.label, (SELECT COUNT(questions.id) FROM questions WHERE questions.quiz_id = quiz.id) AS 'questions', (SELECT COUNT(quiz_answers.id) FROM quiz_answers JOIN answers ON (quiz_answers.answer_id = answers.id) JOIN questions ON (answers.question_id = questions.id) JOIN quiz ON (questions.quiz_id = quiz.id) WHERE answers.is_correct = 1 AND quiz_answers.user_id = ?) AS 'score', (SELECT COUNT(quiz_answers.id) FROM quiz_answers JOIN answers ON (quiz_answers.answer_id = answers.id) JOIN questions ON (answers.question_id = questions.id) JOIN quiz ON (questions.quiz_id = quiz.id) WHERE quiz_answers.user_id = ?) AS 'questions_answered' FROM quiz",
 	createQuiz: "INSERT INTO quiz (`user_id`, `label`) VALUES (?, ?)",
 	getQuiz: "SELECT quiz.id, quiz.label FROM quiz WHERE quiz.id = ?",
+	deleteQuiz: "DELETE FROM quiz WHERE quiz.id = ?",
 	getQuestions: "SELECT questions.id, questions.quiz_id, questions.label FROM questions WHERE questions.quiz_id = ?",
 	getAnswers: "SELECT answers.id, answers.question_id, answers.label, answers.is_correct FROM answers JOIN questions ON (answers.question_id = questions.id) WHERE questions.quiz_id = ?",
 }
