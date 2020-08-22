@@ -26,6 +26,22 @@ function removeAnswerFromList(answerNode) {
 	answerNode.remove();
 }
 
+function changeAnswerInList(answerNode) {
+	let bool = answerNode.getAttribute("data-delete") == "true" ? false : true;
+
+	answerNode.setAttribute("data-delete", bool);
+
+	if (bool) {
+		answerNode.childNodes[1].childNodes[1].childNodes[0].classList.remove("btn-danger");
+		answerNode.childNodes[1].childNodes[1].childNodes[0].classList.add("btn-success");
+		answerNode.childNodes[1].childNodes[1].childNodes[0].childNodes[0].innerHTML = "undo";
+	} else {
+		answerNode.childNodes[1].childNodes[1].childNodes[0].classList.remove("btn-success");
+		answerNode.childNodes[1].childNodes[1].childNodes[0].classList.add("btn-danger");
+		answerNode.childNodes[1].childNodes[1].childNodes[0].childNodes[0].innerHTML = "&times;";
+	}
+}
+
 function addAnswerToList(elemPrefix, answerData) {
 	let answerList = document.getElementById(elemPrefix + "-answers-list");
 	let num = 0;
