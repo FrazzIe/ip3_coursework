@@ -231,3 +231,34 @@ app.get("/quiz/edit/:quiz_id/delete/:id", function(req, res) {
 		res.redirect("/");
 	}
 });
+
+app.post("/quiz/edit/:id/create", function(req, res) {
+	if (req.isAuthenticated() && req.user.admin) { //check if logged in & is admin
+		if (req.body && req.body.label && req.body.label != "") { //check if params exist
+			if (req.body.answers && req.body.answers.length > 0) {
+				if (!req.params.id || isNaN(req.params.id)) { //check if params exist
+					res.redirect("/");
+					return;
+				}
+
+				mysql.query(mysql.queries.createQuestion, [req.params.id, req.body.label]).then((result) => { //create question
+					mysql.query(mysql.queries.createAnswers, [sortAnswers(req.body.answers, result.insertId)]).then((result) => { //create answers
+						res.send(req.params.id);
+					}).catch((error) => {
+						console.log(error.message);
+						res.send(req.params.id);
+					})
+				}).catch((error) => {
+					console.log(error.message);
+					res.send(req.params.id);
+				})
+			} else {
+				res.send("You must have at least 1 answer");
+			}
+		} else {
+			res.send("You can't enter a blank question");
+		}
+	} else {
+		res.redirect("/");
+	}
+});
