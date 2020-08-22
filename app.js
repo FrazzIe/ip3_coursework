@@ -40,6 +40,16 @@ function sortQuestionAnswers(questions, answers) {
 	return data;
 } //matches answers with there questions
 
+function sortAnswers(answers, questionId) {
+	let data = [];
+
+	for (let answer = 0; answer < answers.length; answer++) {
+		data.push([questionId, answers[answer].label, answers[answer].correct ? 1 : 0]);
+	}
+
+	return data;
+}
+
 app.listen(config.app.port, () => { //make app listen for port
 	console.log("quiz_manager listening on port " + config.app.port);
 });
