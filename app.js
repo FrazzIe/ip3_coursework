@@ -270,11 +270,11 @@ app.get("/quiz/edit/:quiz/fetch/:id", function(req, res) {
 			return;
 		}
 
-		mysql.query(mysql.queries.getQuestion, [req.params.id]).then((question) => { //delete question
+		mysql.query(mysql.queries.getQuestion, [req.params.id]).then((question) => { //fetch question
 			if (typeof question[0] === "undefined") {
 				res.redirect("/quiz/edit/" + quiz);
 			} else {
-				mysql.query(mysql.queries.getAnswers, [req.params.id]).then((answers) => { //delete question
+				mysql.query(mysql.queries.getQuestionAnswers, [req.params.id]).then((answers) => { //fetch a questions answers
 					res.send({
 						question: question[0],
 						answers: answers,
