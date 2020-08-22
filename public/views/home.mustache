@@ -26,7 +26,7 @@
 		{{#quizzes}}
 			<div class="col">
 				<div class="card">
-					<div class="card-header" data-id="{{ id }}">
+					<div class="card-header">
 						<div class="row align-items-center">
 							<div class="col-6">
 								{{ label }}
@@ -42,6 +42,24 @@
 						<div class="card-text">
 							<div class="card-text">
 								The {{ label }} quiz contains {{ questions }} question(s) and will take an estimated <span id="estimation-{{ id }}" data-count="{{ questions }}"></span> to complete.
+							</div>
+						</div>
+					</div>
+					<div class="card-footer align-items-center">
+						<div class="row">
+							<div class="col-sm-6">
+								<button type="button" class="btn btn-success">Start</button>
+							</div>
+							<div class="col-sm-6">
+								<div class="float-right">
+								{{#admin}}
+									<button type="button" class="btn btn-info">Edit</button>
+									<button type="button" class="btn btn-danger">Delete</button>
+								{{/admin}}
+								{{^admin}}
+									<button type="button" class="btn btn-info">View Results</button>
+								{{/admin}}
+								</div>
 							</div>
 						</div>
 					</div>
