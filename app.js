@@ -141,6 +141,46 @@ app.post("/create", function(req, res) {
 	}
 });
 
-app.get("/logout", function(req, res) {
+app.get("/edit/:id", function(req, res) {
+	if (req.isAuthenticated() && req.user.admin) { //check if logged in & is admin
+		if (!req.params.id || isNaN(req.params.id)) { //check if params exist
+			res.redirect("/");
+			return;
+		}
 
+		mysql.query(mysql.queries.getQuiz, [req.params.id]).then((quizz) => { //fetch quiz
+			if (typeof quizz[0] === "undefined") {
+				res.redirect("/");
+			} else {
+				mysql.query(mysql.queries.getQuestions, [req.params.id]).then((questions) => { //fetch questions
+					mysql.query(mysql.queries.getAnswers, [req.params.id]).then((answers) => { //fetch answers
+						let data = {
+							title:"Edit " + quizz[0].label,
+							label: quizz[0].label,
+							username: req.user.username,
+							admin: req.user.admin,
+							items: sortQuestionAnswers(questions, answers),
+							index: function() {
+								return function(array, render) {
+									return data[array].indexOf(this) + 1;
+								}
+							},
+						}
+						res.render("edit", data)
+					}).catch((error) => {
+						console.log(error.message);
+						res.redirect("/");
+					})
+				}).catch((error) => {
+					console.log(error.message);
+					res.redirect("/");
+				})
+			}
+		}).catch((error) => {
+			console.log(error.message);
+			res.redirect("/");
+		});
+	} else {
+		res.redirect("/");
+	}
 });
