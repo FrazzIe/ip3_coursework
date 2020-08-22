@@ -21,6 +21,7 @@
 */
 
 const createForm = document.getElementById("create-form");
+const editFrom = document.getElementById("edit-form");
 
 function removeAnswerFromList(answerNode) {
 	answerNode.remove();
@@ -144,7 +145,7 @@ function getAnswers(elemPrefix) {
 		}
 	}
 
-	return [newAnswers, deleteAnswers, changedAnswers];
+	return [newAnswers, deletedAnswers, changedAnswers];
 }
 
 createForm.addEventListener("submit", function(event) { //add a listener for when the form is submitted
@@ -157,9 +158,11 @@ createForm.addEventListener("submit", function(event) { //add a listener for whe
 		return;
 	}
 
+	const [newAnswers, deletedAnswers, changedAnswers] = getAnswers("create");
+
 	axios.post("/quiz/edit/" + quizElement.dataset.id + "/create", { //make a request to the server
 		label: document.getElementById("create-label").value,
-		answers: getAnswers(),
+		answers: newAnswers,
 	}).then((resp) => {
 		if (resp.data) {
 			if (typeof resp.data != "string") {
@@ -213,3 +216,37 @@ function editQuestion(id) {
 	
 	$("#loaderModal").modal("show");
 }
+
+editForm.addEventListener("submit", function(event) { //add a listener for when the form is submitted
+	event.preventDefault(); //prevent default form behaviour
+
+	let quizElement = document.getElementById("quiz-id");
+	let questionElement = document.getElementById("edit-label");
+
+	if (!quizElement.dataset || !quizElement.dataset.id || !questionElement.dataset | !questionElement.dataset.id) {
+		location.reload();
+		return;
+	}
+
+	const [newAnswers, deletedAnswers, changedAnswers] = getAnswers("edit");
+
+	axios.post("/quiz/edit/" + quizElement.dataset.id + "/edit/" + questionElement.dataset.id, { //make a request to the server
+		label: questionElement.value,
+		newAnswers: newAnswers,
+		deletedAnswers: deletedAnswers,
+		changedAnswers: changedAnswers,
+	}).then((resp) => {
+		if (resp.data) {
+			if (typeof resp.data != "string") {
+				window.location.href = "/quiz/edit/" + resp.data;
+			} else {
+				$("#create-modal").modal("hide");
+				$("#errorModalTitle").text("An error occurred");
+				$("#errorModalText").text(resp.data);
+				$("#errorModal").modal("show"); //display warning
+			}
+		}
+	}).catch((error) => {
+		console.log(error);
+	});
+});
