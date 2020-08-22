@@ -177,6 +177,7 @@ app.get("/quiz/edit/:id", function(req, res) {
 							label: quizz[0].label,
 							username: req.user.username,
 							admin: req.user.admin,
+							quiz: req.params.id,
 							items: sortQuestionAnswers(questions, answers),
 							index: function() {
 								return function(array, render) {
