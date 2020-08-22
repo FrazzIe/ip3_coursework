@@ -202,3 +202,21 @@ app.get("/quiz/edit/:id", function(req, res) {
 		res.redirect("/");
 	}
 });
+
+app.get("/quiz/edit/:quiz_id/delete/:id", function(req, res) {
+	if (req.isAuthenticated() && req.user.admin) { //check if logged in & is admin
+		if (!req.params.id || isNaN(req.params.id) || !req.params.quiz_id || isNaN(req.params.quiz_id)) { //check if params exist
+			res.redirect("/");
+			return;
+		}
+
+		mysql.query(mysql.queries.deleteQuestion, [req.params.id]).then((result) => { //delete question
+			res.redirect("/quiz/edit/" + quiz_id);
+		}).catch((error) => {
+			console.log(error.message);
+			res.redirect("/quiz/edit/" + quiz_id);
+		})
+	} else {
+		res.redirect("/");
+	}
+});
