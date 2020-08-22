@@ -14,10 +14,18 @@ authForm.addEventListener("submit", (event) => { //add a listener for when the f
 	}).then((resp) => {
 		if (resp.data) {
 			if (resp.data != "ok") {
-				console.log(resp.data) //display warning
+				$("#errorModalTitle").text("An error occurred");
+				$("#errorModalText").text(resp.data);
+				$("#errorModal").modal("show"); //display warning
 			} else {
-				window.location.href = "/"; //reload page on response
-			}			
+				if (action == "login") {
+					window.location.href = "/"; //reload page on response
+				} else {
+					$("#errorModalTitle").text("Account created");
+					$("#errorModalText").text("You can now login!");
+					$("#errorModal").modal("show");
+				}
+			}
 		}
 	}).catch((error) => {
 		console.log(error);
