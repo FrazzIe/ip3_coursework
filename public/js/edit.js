@@ -50,8 +50,8 @@ function addAnswerToList(elemPrefix, answerData) {
 		 num = parseInt(answerList.lastElementChild.getAttribute("data-id")) + 1;
 	}
 
-	let textId = "create-answer-" + num;
-	let checkboxId = "create-answer-checkbox-" + num;
+	let textId = elemPrefix + "-answer-" + num;
+	let checkboxId = elemPrefix + "-answer-checkbox-" + num;
 	let answerNode = document.createElement("div");
 	let answerCheckbox = false;
 	let answerLabel = "";
