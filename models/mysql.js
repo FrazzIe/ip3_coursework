@@ -14,7 +14,7 @@ var queries = { //list of mysql queries
 	getQuestion: "SELECT questions.id, questions.quiz_id, questions.label FROM questions WHERE questions.id = ?",
 	getQuestionAnswers: "SELECT answers.id, answers.question_id, answers.label, answers.is_correct FROM answers WHERE answers.question_id = ?",
 	deleteQuestion: "DELETE FROM questions WHERE question.id = ?",
-	updateQuestion: "UPDATE SET question.label = ? WHERE question.id = ?",
+	updateQuestion: "UPDATE questions SET questions.label = ? WHERE questions.id = ?",
 	getAnswers: "SELECT answers.id, answers.question_id, answers.label, answers.is_correct FROM answers JOIN questions ON (answers.question_id = questions.id) WHERE questions.quiz_id = ?",
 	createAnswers: "INSERT INTO answers (`question_id`, `label`, `is_correct`) VALUES ?",
 	deleteAnswers: "DELETE FROM answers WHERE answers.id IN (?)",
