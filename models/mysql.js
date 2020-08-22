@@ -10,6 +10,7 @@ var queries = { //list of mysql queries
 	getQuiz: "SELECT quiz.id, quiz.label FROM quiz WHERE quiz.id = ?",
 	deleteQuiz: "DELETE FROM quiz WHERE quiz.id = ?",
 	getQuestions: "SELECT questions.id, questions.quiz_id, questions.label FROM questions WHERE questions.quiz_id = ?",
+	deleteQuestion: "DELETE FROM questions WHERE question.id = ?",
 	getAnswers: "SELECT answers.id, answers.question_id, answers.label, answers.is_correct FROM answers JOIN questions ON (answers.question_id = questions.id) WHERE questions.quiz_id = ?",
 }
 
