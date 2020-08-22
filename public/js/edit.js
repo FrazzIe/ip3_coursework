@@ -148,13 +148,26 @@ function editQuestion(id) {
 		return;
 	}
 
-	$("#loaderModal").modal("show");
+	let requestHandler = function(event) {
+		axios.get("/quiz/edit/" + quizElement.dataset.id + "/fetch/" + id).then((resp) => {
+			console.log(resp.data);
+			if (resp.data) {
+				if (typeof resp.data != "object") {
+					window.location.href = resp.data;
+				} else {
+					$("#loaderModal").modal("hide");
+					document.getElementById("")
+				}
+			}
+		}).catch((error) => {
+			console.log(error);
+		});
+	};
 
-	axios.get("/quiz/edit/" + quizElement.dataset.id + "/fetch/" + id).then((resp) => {
-		if (resp.data) {
-			$("#loaderModal").modal("hide");
-		}
-	}).catch((error) => {
-		console.log(error);
+	$("#loaderModal").on("shown.bs.modal", requestHandler);
+	$("#loaderModal").on("hide.bs.modal", function(event) {
+		$("#loaderModal").off("shown.bs.modal", requestHandler);
 	});
+	
+	$("#loaderModal").modal("show");
 }
