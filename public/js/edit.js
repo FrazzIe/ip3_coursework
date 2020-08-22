@@ -110,7 +110,7 @@ createForm.addEventListener("submit", function(event) { //add a listener for whe
         return;
     }
 
-	axios.post("/quiz/edit/" + quizElement.dataset.id + "/create/", { //make a request to the server
+	axios.post("/quiz/edit/" + quizElement.dataset.id + "/create", { //make a request to the server
         label: document.getElementById("create-label").value,
         answers: getAnswers(),
 	}).then((resp) => {
