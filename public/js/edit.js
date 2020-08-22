@@ -21,6 +21,7 @@
 */
 
 const createForm = document.getElementById("create-form");
+const editBtn = document.getElementById("edit-btn");
 
 function removeAnswerFromList(element) {
 	element.remove();
@@ -128,3 +129,20 @@ createForm.addEventListener("submit", function(event) { //add a listener for whe
 		console.log(error);
 	});
 });
+
+editBtn.addEventListener("click", function() {
+	let quizElement = document.getElementById("quiz-id");
+
+	if (!editBtn.dataset || !editBtn.dataset.id || !quizElement.dataset || !quizElement.dataset.id) {
+		location.reload();
+		return;
+	}
+
+	axois.get("/quiz/edit/" + quizElement.dataset.id + "/fetch/" + editBtn.dataset.id).then((resp) => {
+		if (resp.data) {
+
+		}
+	}).catch((error) => {
+		console.log(error);
+	});
+})
