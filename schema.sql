@@ -47,12 +47,12 @@ CREATE TABLE IF NOT EXISTS `answers` (
 
 CREATE TABLE IF NOT EXISTS `quiz_answers` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `question_id` bigint(20) NOT NULL,
+  `answer_id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `quiz_answers_fk0` (`question_id`),
   KEY `quiz_answers_fk1` (`user_id`),
-  CONSTRAINT `quiz_answers_fk0` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`),
+  KEY `quiz_answers_fk0` (`answer_id`),
+  CONSTRAINT `quiz_answers_fk0` FOREIGN KEY (`answer_id`) REFERENCES `answers` (`id`),
   CONSTRAINT `quiz_answers_fk1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
