@@ -12,8 +12,33 @@
 			</div>
 			<div class="col-6">
 				<div class="float-right">
-					<button type="button" class="btn btn-info">New Quiz</button>
+					<button type="button" class="btn btn-info" data-toggle="modal" data-target="#create-modal">New Quiz</button>
 				</div>
+
+				<div class="modal fade" id="create-modal" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Create a quiz</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<form id="create-form">
+								<div class="modal-body">
+									<div class="form-group">
+										<label for="create-label">Title</label>
+										<input type="email" class="form-control" id="create-label">
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary">Create</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>				
 			</div>
 		{{/admin}}
 		{{^admin}}
