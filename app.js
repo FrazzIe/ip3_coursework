@@ -141,6 +141,24 @@ app.post("/create", function(req, res) {
 	}
 });
 
+app.get("/quiz/delete/:id", function(req, res) {
+	if (req.isAuthenticated() && req.user.admin) { //check if logged in & is admin
+		if (!req.params.id || isNaN(req.params.id)) { //check if params exist
+			res.redirect("/");
+			return;
+		}
+		
+		mysql.query(mysql.queries.deleteQuiz, [req.params.id]).then((result) => { //fetch answers
+			res.redirect("/");
+		}).catch((error) => {
+			console.log(error.message);
+			res.redirect("/");
+		})
+	} else {
+		res.redirect("/");
+	}
+});
+
 app.get("/quiz/edit/:id", function(req, res) {
 	if (req.isAuthenticated() && req.user.admin) { //check if logged in & is admin
 		if (!req.params.id || isNaN(req.params.id)) { //check if params exist
