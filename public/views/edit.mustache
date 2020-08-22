@@ -1,0 +1,64 @@
+<head>
+	{{>header}}
+</head>
+
+<body>
+	{{>nav}}
+	<div class="container">
+		<div class="row align-items-center mt-2">		
+			<div class="col-6">
+				<h1 class="display-5 font-weight-bold">Editing {{ label }}</h1>
+			</div>
+			<div class="col-6">
+				<div class="float-right">
+					<div class="row">
+						<div class="col-9">
+							<p class="mt-2"><small class="text-muted">answers marked with &check; are correct</small></p>
+						</div>
+						<div class="col-3">
+							<div class="float-right">
+								<button type="button" class="btn btn-info">New Question</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-1">
+		{{#items}}
+			<div class="col">
+				<div class="card">
+					<div class="card-header">
+						{{#index}}items{{/index}}. {{ label }}
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item h6">Possible Answers</li>
+					{{#answers}}
+						<li class="list-group-item">
+							{{ label }}
+							{{#is_correct}}
+								<span class="float-right">&check;</span>
+							{{/is_correct}}
+						</li>
+					{{/answers}}
+					</ul>
+					<div class="card-footer align-items-center">
+						<div class="row">
+							<div class="col-sm-6">
+								<button type="button" class="btn btn-info">Edit</button>
+							</div>
+							<div class="col-sm-6">
+								<div class="float-right">
+									<button type="button" class="btn btn-danger">Delete</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{{/items}}
+		</div>
+	</div>
+
+	{{>footer}}
+</body>
