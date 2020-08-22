@@ -148,7 +148,7 @@ app.get("/quiz/delete/:id", function(req, res) {
 			return;
 		}
 
-		mysql.query(mysql.queries.deleteQuiz, [req.params.id]).then((result) => { //fetch answers
+		mysql.query(mysql.queries.deleteQuiz, [req.params.id]).then((result) => { //delete quiz
 			res.redirect("/");
 		}).catch((error) => {
 			console.log(error.message);
