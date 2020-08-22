@@ -23,6 +23,21 @@ app.use(passport.initialize());
 app.use(passport.session()); //setup passport session
 app.use(bodyParser.json()); //parse json requests
 
+function sortQuestionAnswers(questions, answers) {
+	let data = [];
+
+	for (let question = 1; question < questions.length; question++) {
+		let questionIdx = data.push(questions[question]);
+
+		data[questionIdx].answers = [];
+
+		for (let answer = 1; answer < answers.length; answer++) {
+			if (data[questionIdx].id == answers[answer].question_id)
+				data.push(answers[answer]);
+		}
+	}
+} //matches answers with there questions
+
 app.listen(config.app.port, () => { //make app listen for port
 	console.log("quiz_manager listening on port " + config.app.port);
 });
