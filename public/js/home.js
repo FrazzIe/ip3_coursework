@@ -12,10 +12,17 @@ function getQuizEstimation(count, num) {
 
 function setQuizEstimations() {
     let elements = document.querySelectorAll("span[id^='estimation-']");
-    console.log("hi");
     elements.forEach(function(element) {
         element.textContent = getQuizEstimation(element.dataset.count, 2);
     });
 }
 
+function setQuizPercentages() {
+    let elements = document.querySelectorAll("span[id^='percentage-']");
+    elements.forEach(function(element) {
+        element.textContent = (element.dataset.score / element.dataset.count * 100) + "%";
+    });
+}
+
 setQuizEstimations();
+setQuizPercentages();

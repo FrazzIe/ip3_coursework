@@ -43,6 +43,11 @@
 							<div class="card-text">
 								The {{ label }} quiz contains {{ questions }} question(s) and will take an estimated <span id="estimation-{{ id }}" data-count="{{ questions }}"></span> to complete.
 							</div>
+							{{#questions_answered}}
+							<div class="card-text">
+								You scored {{ score }} out of {{ questions }} in your last attempt which means you got <span id="percentage-{{ id }}" data-count="{{ questions }}" data-score="{{ score }}"></span> of questions right.
+							</div>
+							{{/questions_answered}}
 						</div>
 					</div>
 					<div class="card-footer align-items-center">
