@@ -98,7 +98,11 @@ function addAnswerToList(elemPrefix, answerData) {
 	answerNode.childNodes[1].childNodes[1].appendChild(document.createElement("button"));
 	answerNode.childNodes[1].childNodes[1].childNodes[0].classList.add("btn", "btn-danger");
 	answerNode.childNodes[1].childNodes[1].childNodes[0].setAttribute("type", "button");
-	answerNode.childNodes[1].childNodes[1].childNodes[0].onclick = function () { removeAnswerFromList(answerNode) };
+	if (answerData) {
+		answerNode.childNodes[1].childNodes[1].childNodes[0].onclick = function () { changeAnswerInList(answerNode) };
+	} else {
+		answerNode.childNodes[1].childNodes[1].childNodes[0].onclick = function () { removeAnswerFromList(answerNode) };
+	}
 	answerNode.childNodes[1].childNodes[1].childNodes[0].appendChild(document.createElement("span"));
 	answerNode.childNodes[1].childNodes[1].childNodes[0].childNodes[0].setAttribute("aria-hidden", "true");
 	answerNode.childNodes[1].childNodes[1].childNodes[0].childNodes[0].innerHTML = "&times;";
