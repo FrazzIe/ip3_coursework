@@ -266,13 +266,13 @@ app.post("/quiz/edit/:id/create", function(req, res) {
 app.get("/quiz/edit/:quiz/fetch/:id", function(req, res) {
 	if (req.isAuthenticated() && req.user.admin) { //check if logged in & is admin
 		if (!req.params.id || isNaN(req.params.id) || !req.params.quiz || isNaN(req.params.quiz)) { //check if params exist
-			res.redirect("/");
+			res.send("/");
 			return;
 		}
 
 		mysql.query(mysql.queries.getQuestion, [req.params.id]).then((question) => { //fetch question
 			if (typeof question[0] === "undefined") {
-				res.redirect("/quiz/edit/" + quiz);
+				res.send("/quiz/edit/" + quiz);
 			} else {
 				mysql.query(mysql.queries.getQuestionAnswers, [req.params.id]).then((answers) => { //fetch a questions answers
 					res.send({
@@ -286,9 +286,9 @@ app.get("/quiz/edit/:quiz/fetch/:id", function(req, res) {
 			}
 		}).catch((error) => {
 			console.log(error.message);
-			res.redirect("/quiz/edit/" + quiz);
+			res.send("/quiz/edit/" + quiz);
 		})
 	} else {
-		res.redirect("/");
+		res.send("/");
 	}
 });
