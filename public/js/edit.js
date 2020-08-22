@@ -27,8 +27,8 @@ function removeAnswerFromList(element) {
 	element.remove();
 }
 
-function addAnswerToList() {
-	let answerList = document.getElementById("create-answers-list");
+function addAnswerToList(increment, answerData) {
+	let answerList = document.getElementById("create-answers-list-" + increment);
 	let num = 0;
 
 	if (answerList.lastElementChild != null) {
@@ -38,7 +38,16 @@ function addAnswerToList() {
 	let textId = "create-answer-" + num;
 	let checkboxId = "create-answer-checkbox-" + num;
 	let answerNode = document.createElement("div");
+	let answerCheckbox = false;
+	let answerLabel = "";
 
+	if (answerData) {
+		answerNode.setAttribute("data-answer-id", answerData.id);
+		answerLabel =  answerData.label;
+		answerCheckbox = answerData.is_correct == 1;
+	}
+
+	//answers.id, answers.question_id, answers.label, answers.is_correct
 	answerNode.classList.add("form-group", "mr-2");
 	answerNode.setAttribute("data-id", num);
 	answerNode.appendChild(document.createElement("div"));
@@ -56,6 +65,7 @@ function addAnswerToList() {
 	answerNode.childNodes[0].childNodes[1].childNodes[0].childNodes[0].classList.add("form-check-input");
 	answerNode.childNodes[0].childNodes[1].childNodes[0].childNodes[0].setAttribute("id", checkboxId);
 	answerNode.childNodes[0].childNodes[1].childNodes[0].childNodes[0].setAttribute("type", "checkbox");
+	answerNode.childNodes[0].childNodes[1].childNodes[0].childNodes[0].setAttribute("checked", answerCheckbox);
 	answerNode.childNodes[0].childNodes[1].childNodes[0].appendChild(document.createElement("label"));    
 	answerNode.childNodes[0].childNodes[1].childNodes[0].childNodes[1].classList.add("form-check-label");
 	answerNode.childNodes[0].childNodes[1].childNodes[0].childNodes[1].setAttribute("for", checkboxId);
@@ -66,6 +76,7 @@ function addAnswerToList() {
 	answerNode.childNodes[1].childNodes[0].classList.add("form-control");
 	answerNode.childNodes[1].childNodes[0].setAttribute("id", textId);
 	answerNode.childNodes[1].childNodes[0].setAttribute("type", "text");
+	answerNode.childNodes[1].childNodes[0].setAttribute("value", answerLabel);
 	answerNode.childNodes[1].appendChild(document.createElement("div"));
 	answerNode.childNodes[1].childNodes[1].classList.add("input-group-append");
 	answerNode.childNodes[1].childNodes[1].appendChild(document.createElement("button"));
@@ -140,7 +151,7 @@ editBtn.addEventListener("click", function() {
 
 	axois.get("/quiz/edit/" + quizElement.dataset.id + "/fetch/" + editBtn.dataset.id).then((resp) => {
 		if (resp.data) {
-
+			
 		}
 	}).catch((error) => {
 		console.log(error);
