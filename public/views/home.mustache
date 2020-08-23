@@ -8,12 +8,12 @@
 	<div class="container">
 		<div class="row align-items-center mt-2">
 		{{#admin}}
-			<div class="col-6">
-				<h1 class="display-5 font-weight-bold">Available Quizzes</h1>
+			<div class="col-12 col-md-6">
+				<h1 class="display-5 font-weight-bold text-center text-md-left">Available Quizzes</h1>
 			</div>
-			<div class="col-6">
-				<div class="float-right">
-					<button type="button" class="btn btn-info" data-toggle="modal" data-target="#create-modal">New Quiz</button>
+			<div class="col-12 col-md-6">
+				<div class="float-md-right">
+					<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#create-modal">New Quiz</button>
 				</div>
 
 				<div class="modal fade" id="create-modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -43,7 +43,7 @@
 			</div>
 		{{/admin}}
 		{{^admin}}
-			<div class="col text-center">
+			<div class="col-12 text-center mb-0">
 				<h1 class="display-5 font-weight-bold">Available Quizzes</h1>
 			</div>
 		{{/admin}}
@@ -51,11 +51,11 @@
 		<div class="row mt-1">
 		{{#quizzes}}
 			{{#admin}} <!-- Show quizzes with and without answers but don't allow quizzes without answers to be used only edited -->
-				<div class="col">
+				<div class="col-12 col-xl-6 mt-3 mb-3">
 					<div class="card">
 						<div class="card-header">
 							<div class="row align-items-center">
-								<div class="col-6">
+								<div class="col-6 text-truncate">
 									{{ label }}
 								</div>
 								<div class="col-6">
@@ -71,6 +71,7 @@
 									The <b>{{ label }}</b> quiz contains {{ questions }} question(s) and will take an estimated <span id="estimation-{{ id }}" data-count="{{ questions }}"></span> to complete.
 								</div>
 								{{#questions_answered}}
+								<hr>
 								<div class="card-text">
 									You scored {{ score }} out of {{ questions }} in your last attempt which means you got <span id="percentage-{{ id }}" data-count="{{ questions }}" data-score="{{ score }}"></span> of questions right.
 								</div>
@@ -79,44 +80,35 @@
 						</div>
 						<div class="card-footer align-items-center">
 							<div class="row">
-								<div class="col-sm-6">
+								<div class="col-12 col-md-6 mb-1 mb-md-1">
 									{{#questions}}
-									<a href="/quiz/start/{{ id }}" class="btn btn-success">									
-										{{#questions_answered}}
-											Retry
-										{{/questions_answered}}
-										{{^questions_answered}}
-											Start
-										{{/questions_answered}}
-									</a>
-										{{#admin}}
+										<a href="/quiz/start/{{ id }}" class="btn btn-success">									
 											{{#questions_answered}}
-												<button type="button" class="btn btn-info">View Results</button>
+												Retry
 											{{/questions_answered}}
-										{{/admin}}
+											{{^questions_answered}}
+												Start
+											{{/questions_answered}}
+										</a>
+										{{#questions_answered}}
+											<button type="button" class="btn btn-info float-right float-md-none">View Results</button>
+										{{/questions_answered}}
 									{{/questions}}
 									{{^questions}}
-									<button type="button" class="btn btn-success" disabled>									
-										{{#questions_answered}}
-											Retry
-										{{/questions_answered}}
-										{{^questions_answered}}
-											Start
-										{{/questions_answered}}
-									</button>										
+										<button type="button" class="btn btn-success" disabled>									
+											{{#questions_answered}}
+												Retry
+											{{/questions_answered}}
+											{{^questions_answered}}
+												Start
+											{{/questions_answered}}
+										</button>										
 									{{/questions}}
 								</div>
-								<div class="col-sm-6">
-									<div class="float-right">
-									{{#admin}}
+								<div class="col-12 col-md-6 mt-1 mt-md-1">
+									<div class="float-md-right">
 										<a href="/quiz/edit/{{ id }}" class="btn btn-info">Edit</a>
-										<a href="/quiz/delete/{{ id }}" class="btn btn-danger">Delete</a>
-									{{/admin}}
-									{{^admin}}
-										{{#questions_answered}}
-											<button type="button" class="btn btn-info">View Results</button>
-										{{/questions_answered}}
-									{{/admin}}
+										<a href="/quiz/delete/{{ id }}" class="btn btn-danger float-right float-md-none">Delete</a>
 									</div>
 								</div>
 							</div>
@@ -126,11 +118,11 @@
 			{{/admin}}
 			{{^admin}}
 				{{#questions}} <!-- Only show quizzes with answers to users -->
-					<div class="col">
+					<div class="col-12 col-xl-6 mt-3 mb-3">
 						<div class="card">
 							<div class="card-header">
 								<div class="row align-items-center">
-									<div class="col-6">
+									<div class="col-6 text-truncate">
 										{{ label }}
 									</div>
 									<div class="col-6">
@@ -146,6 +138,7 @@
 										The <b>{{ label }}</b> quiz contains {{ questions }} question(s) and will take an estimated <span id="estimation-{{ id }}" data-count="{{ questions }}"></span> to complete.
 									</div>
 									{{#questions_answered}}
+									<hr>
 									<div class="card-text">
 										You scored {{ score }} out of {{ questions }} in your last attempt which means you got <span id="percentage-{{ id }}" data-count="{{ questions }}" data-score="{{ score }}"></span> of questions right.
 									</div>
@@ -153,35 +146,18 @@
 								</div>
 							</div>
 							<div class="card-footer align-items-center">
-								<div class="row">
-									<div class="col-sm-6">
-										<a href="/quiz/start/{{ id }}" class="btn btn-success">
-										{{#questions_answered}}
-											Retry
-										{{/questions_answered}}
-										{{^questions_answered}}
-											Start
-										{{/questions_answered}}
-										</a>
-										{{#admin}}
-											{{#questions_answered}}
-												<button type="button" class="btn btn-info">View Results</button>
-											{{/questions_answered}}
-										{{/admin}}
-									</div>
-									<div class="col-sm-6">
-										<div class="float-right">
-										{{#admin}}
-											<a href="/quiz/edit/{{ id }}" class="btn btn-info">Edit</a>
-											<a href="/quiz/delete/{{ id }}" class="btn btn-danger">Delete</a>
-										{{/admin}}
-										{{^admin}}
-											{{#questions_answered}}
-												<button type="button" class="btn btn-info">View Results</button>
-											{{/questions_answered}}
-										{{/admin}}
-										</div>
-									</div>
+								<a href="/quiz/start/{{ id }}" class="btn btn-success">
+									{{#questions_answered}}
+										Retry
+									{{/questions_answered}}
+									{{^questions_answered}}
+										Start
+									{{/questions_answered}}
+								</a>
+								<div class="float-right">
+									{{#questions_answered}}
+										<button type="button" class="btn btn-info">View Results</button>
+									{{/questions_answered}}
 								</div>
 							</div>
 						</div>
