@@ -312,6 +312,61 @@ app.post("/quiz/finish/:id", function(req, res) {
 	}
 });
 
+app.get("/quiz/results/:id", function(req, res) {
+	if (req.isAuthenticated()) { //check if logged in
+		if (!req.params.id || isNaN(req.params.id)) { //check if params exist
+			res.redirect("/");
+			return;
+		}
+
+		mysql.query(mysql.queries.getQuizAnswers, [req.params.id, req.user.id]).then((results) => { //fetch answers
+			if (typeof results[0] === "undefined") {
+				res.redirect("/");
+			} else {
+				mysql.query(mysql.queries.getQuiz, [req.params.id]).then((quizz) => { //fetch quiz
+					if (typeof quizz[0] === "undefined") {
+						res.redirect("/");
+					} else {				
+						mysql.query(mysql.queries.getQuestions, [req.params.id]).then((questions) => { //fetch questions
+							mysql.query(mysql.queries.getAnswers, [req.params.id]).then((answers) => { //fetch answers
+								let data = {
+									title: quizz[0].label + " Results",
+									label: quizz[0].label,
+									username: req.user.username,
+									admin: req.user.admin,
+									quiz: req.params.id,
+									count: questions.length,
+									items: sortQuestionAnswers(questions, answers, results),
+									index: function() {
+										return function(array, render) {
+											return data[array].indexOf(this) + 1;
+										}
+									},
+								}
+								res.render("results", data)
+							}).catch((error) => {
+								console.log(error.message);
+								res.redirect("/");
+							})
+						}).catch((error) => {
+							console.log(error.message);
+							res.redirect("/");
+						})
+					}
+				}).catch((error) => {
+					console.log(error.message);
+					res.redirect("/");
+				});
+			}
+		}).catch((error) => {
+			console.log(error.message);
+			res.redirect("/");
+		});
+	} else {
+		res.redirect("/");
+	}
+});
+
 app.get("/quiz/edit/:quiz/delete/:id", function(req, res) {
 	if (req.isAuthenticated() && req.user.admin) { //check if logged in & is admin
 		if (!req.params.id || isNaN(req.params.id) || !req.params.quiz || isNaN(req.params.quiz)) { //check if params exist
