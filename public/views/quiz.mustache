@@ -28,20 +28,17 @@
 		</div>
 		<div class="row mt-1">
 		{{#items}}
-			<div class="col">
+			<div class="col-6 mt-1 mb-1">
 				<div class="card">
 					<div class="card-header">
 						{{#index}}items{{/index}}. {{ label }}
 					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item h6">Possible Answers</li>
-					{{#answers}}
-						<input type="radio" name="RadioInputName" value="Value1" id="Radio1" />
-  						<label class="list-group-item" for="Radio1">Caption for Radio1</label>
-					{{/answers}}
-					</ul>
-					<div class="card-footer align-items-center">
-
+					<div class="list-group list-group-flush">
+						<label class="list-group-item mb-0">Select an answer</label>				
+						{{#answers}}
+							<input type="radio" name="quiz-question-{{ question_id }}" id="quiz-answer-{{ id }}"/>
+							<label class="list-group-item mb-0" for="quiz-answer-{{ id }}">{{ label }}</label>
+						{{/answers}}
 					</div>
 				</div>
 			</div>
