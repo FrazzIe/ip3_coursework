@@ -23,6 +23,7 @@
 
 const createForm = document.getElementById("create-form");
 const editForm = document.getElementById("edit-form");
+const quizForm = document.getElementById("quiz-form");
 
 function removeAnswerFromList(answerNode) {
 	answerNode.remove();
@@ -265,4 +266,42 @@ $("#edit-modal").on("hide.bs.modal", function(event) {
 	while (answerList.firstChild) {
 		answerList.removeChild(answerList.firstChild);
 	} //clear answer list
+});
+
+quizForm.addEventListener("submit", function(event) { //add a listener for when the form is submitted
+	event.preventDefault(); //prevent default form behaviour
+
+	if (quizForm.checkValidity() === false) {
+		event.stopPropagation();
+		quizForm.classList.add("was-validated");		
+		return;
+	}
+
+	let quizElement = document.getElementById("quiz-id");
+
+	if (!quizElement.dataset || !quizElement.dataset.id) {
+		location.reload();
+		return;
+	}
+
+	axios.post("/quiz/edit/" + quizElement.dataset.id + "/title", { //make a request to the server
+		label: document.getElementById("quiz-title").value,
+	}).then((resp) => {
+		if (resp.data) {
+			if (typeof resp.data != "string") {
+				location.reload();
+			} else {
+				if (resp.data.startsWith("/")) {
+					location.href = resp.data;
+				} else {
+					$("#edit-modal").modal("hide");
+					$("#errorModalTitle").text("An error occurred");
+					$("#errorModalText").text(resp.data);
+					$("#errorModal").modal("show"); //display warning
+				}
+			}
+		}
+	}).catch((error) => {
+		console.log(error);
+	});
 });
