@@ -139,8 +139,8 @@ app.post("/quiz/create", function(req, res) {
 	if (req.isAuthenticated()) { //check if logged in
 		if (req.user.admin) { //check if admin
 			if (req.body && req.body.label && req.body.label != "") { //check if params exist
-				mysql.query(mysql.queries.createQuiz, [req.user.id, req.body.label]).then((result) => { //create quiz		
-					res.send(result.insertId);
+				mysql.query(mysql.queries.createQuiz, [req.user.id, req.body.label]).then((result) => { //create quiz
+					res.send({ id: result.insertId });
 				}).catch((error) => {
 					console.log(error.message);
 					res.status(500).send(error.message);
