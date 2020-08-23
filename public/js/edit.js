@@ -124,12 +124,12 @@ function getAnswers(elemPrefix) {
 		for (let i = 0; i < children.length; i++) {
 			if (children[i].dataset) {
 				if (children[i].dataset.id) {
-					if (children[i].dataset["answer-id"]) {
+					if (children[i].dataset.answerId) {
 						if (children[i].dataset.delete == "true") {
-							deletedAnswers.push(children[i].dataset["answer-id"]);
+							deletedAnswers.push(children[i].dataset.answerId);
 						} else {
 							changedAnswers.push({
-								id: children[i].dataset["answer-id"],
+								id: children[i].dataset.answerId,
 								label: document.getElementById(elemPrefix + "-answer-" + children[i].dataset.id).value,
 								correct: document.getElementById(elemPrefix + "-answer-checkbox-" + children[i].dataset.id).checked,
 							})
