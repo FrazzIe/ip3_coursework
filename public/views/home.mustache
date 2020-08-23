@@ -164,7 +164,14 @@
 					</div>
 				{{/questions}}
 			{{/admin}}
-
+		{{/quizzes}}
+		{{^quizzes}}
+			<div class="col-12 mt-3 mb-3">
+				<h4 class="text-center">No quzzies avaiable :(</h4>
+				{{#admin}}
+					<h5 class="text-center">Create one to get started!</h5>
+				{{/admin}}
+			</div>
 		{{/quizzes}}
 		</div>
 	</div>
