@@ -407,14 +407,14 @@ app.post("/quiz/edit/:id/create", function(req, res) {
 
 				mysql.query(mysql.queries.createQuestion, [req.params.id, req.body.label]).then((result) => { //create question
 					mysql.query(mysql.queries.createAnswers, [sortAnswers(req.body.answers, result.insertId)]).then((result) => { //create answers
-						res.send(req.params.id);
+						res.send("/quiz/edit/" + req.params.id);
 					}).catch((error) => {
 						console.log(error.message);
-						res.send(req.params.id);
+						res.send("/quiz/edit/" + req.params.id);
 					})
 				}).catch((error) => {
 					console.log(error.message);
-					res.send(req.params.id);
+					res.send("/quiz/edit/" + req.params.id);
 				})
 			} else {
 				res.send("You must have at least 1 answer");
