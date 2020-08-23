@@ -220,8 +220,7 @@ editForm.addEventListener("submit", function(event) { //add a listener for when 
 	event.preventDefault(); //prevent default form behaviour
 
 	let quizElement = document.getElementById("quiz-id");
-	let questionElement = document.getElementById("edit-label");
-	let answerList = document.getElementById("edit-answers-list");
+	let questionElement = document.getElementById("edit-label");	
 
 	if (!quizElement.dataset || !quizElement.dataset.id || !questionElement.dataset | !questionElement.dataset.id) {
 		location.reload();
@@ -229,10 +228,6 @@ editForm.addEventListener("submit", function(event) { //add a listener for when 
 	}
 
 	const [newAnswers, deletedAnswers, changedAnswers] = getAnswers("edit");
-
-	while (answerList.firstChild) {
-		answerList.removeChild(answerList.firstChild);
-	} //clear answer list
 
 	axios.post("/quiz/edit/" + quizElement.dataset.id + "/edit/" + questionElement.dataset.id, { //make a request to the server
 		label: questionElement.value,
@@ -257,4 +252,12 @@ editForm.addEventListener("submit", function(event) { //add a listener for when 
 	}).catch((error) => {
 		console.log(error);
 	});
+});
+
+$("#edit-modal").on("hide.bs.modal", function(event) {
+	let answerList = document.getElementById("edit-answers-list");
+
+	while (answerList.firstChild) {
+		answerList.removeChild(answerList.firstChild);
+	} //clear answer list
 });
