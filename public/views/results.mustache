@@ -1,0 +1,51 @@
+<head>
+	{{>header}}
+</head>
+
+<body>
+	{{>nav}}
+	<div class="container">
+		<div class="row align-items-center mt-2">		
+			<div class="col-6">
+				<h1 class="display-5 font-weight-bold" data-id="{{ quiz }}" id="quiz-id">{{ label }} Results</h1>
+			</div>
+			<div class="col-6">
+				<div class="float-right">
+					<div class="row align-items-center">
+						<div class="col-6">
+							<small class="text-muted text-nowrap">answers marked with &check; are correct</small>
+						</div>
+						<div class="col-6">
+							<div class="float-right">
+								score
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-1">
+		{{#items}}
+			<div class="col">
+				<div class="card">
+					<div class="card-header">
+						{{#index}}items{{/index}}. {{ label }}
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item h6 mb-0">Possible Answers</li>
+					{{#answers}}
+						<li class="list-group-item">
+							{{ label }}
+							{{#is_correct}}
+								<span class="float-right">&check;</span>
+							{{/is_correct}}
+						</li>
+					{{/answers}}
+					</ul>
+				</div>
+			</div>
+		{{/items}}
+		</div>
+	</div>
+	{{>footer}}
+</body>
