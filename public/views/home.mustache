@@ -91,7 +91,7 @@
 											{{/questions_answered}}
 										</a>
 										{{#questions_answered}}
-											<button type="button" class="btn btn-info float-right float-md-none">View Results</button>
+											<a href="/quiz/results/{{ id }}" class="btn btn-info">Results</a>
 										{{/questions_answered}}
 									{{/questions}}
 									{{^questions}}
@@ -156,7 +156,7 @@
 								</a>
 								<div class="float-right">
 									{{#questions_answered}}
-										<button type="button" class="btn btn-info">View Results</button>
+										<a href="/quiz/results/{{ id }}" class="btn btn-info">Results</a>
 									{{/questions_answered}}
 								</div>
 							</div>
