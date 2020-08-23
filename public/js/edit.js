@@ -222,6 +222,7 @@ editForm.addEventListener("submit", function(event) { //add a listener for when 
 
 	let quizElement = document.getElementById("quiz-id");
 	let questionElement = document.getElementById("edit-label");
+	let answerList = document.getElementById("edit-answers-list");
 
 	if (!quizElement.dataset || !quizElement.dataset.id || !questionElement.dataset | !questionElement.dataset.id) {
 		location.reload();
@@ -229,6 +230,10 @@ editForm.addEventListener("submit", function(event) { //add a listener for when 
 	}
 
 	const [newAnswers, deletedAnswers, changedAnswers] = getAnswers("edit");
+
+	while (answerList.firstChild) {
+		answerList.removeChild(answerList.firstChild);
+	} //clear answer list
 
 	axios.post("/quiz/edit/" + quizElement.dataset.id + "/edit/" + questionElement.dataset.id, { //make a request to the server
 		label: questionElement.value,
