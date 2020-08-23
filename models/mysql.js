@@ -19,7 +19,7 @@ var queries = { //list of mysql queries
 	createAnswers: "INSERT INTO answers (`question_id`, `label`, `is_correct`) VALUES ?",
 	deleteAnswers: "DELETE FROM answers WHERE answers.id IN (?)",
 	updateAnswers: "INSERT INTO answers (`id`, `question_id`, `label`, `is_correct`) VALUES ? ON DUPLICATE KEY UPDATE label = VALUES(`label`), is_correct = VALUES(`is_correct`)",
-	removeQuizAnswers: "DELETE FROM quiz_answers JOIN answers ON (quiz_answers.id = answers.id) JOIN questions ON (answers.question_id = questions.id) WHERE questions.quiz_id = ?",
+	removeQuizAnswers: "DELETE FROM quiz_answers JOIN answers ON (quiz_answers.id = answers.id) JOIN questions ON (answers.question_id = questions.id) WHERE questions.quiz_id = ? AND quiz_answers.user_id = ?",
 	addQuizAnswers: "INSERT INTO quiz_answers (`answer_id`, `user_id`) VALUES ?",
 }
 
