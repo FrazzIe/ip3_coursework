@@ -319,39 +319,50 @@ app.get("/quiz/results/:id", function(req, res) {
 			return;
 		}
 
-		mysql.query(mysql.queries.getQuizAnswers, [req.params.id, req.user.id]).then((results) => { //fetch answers
+		mysql.query(mysql.queries.getQuizAnswers, [req.params.id, req.user.id]).then((results) => { //fetch user results
 			if (typeof results[0] === "undefined") {
 				res.redirect("/");
 			} else {
 				mysql.query(mysql.queries.getQuiz, [req.params.id]).then((quizz) => { //fetch quiz
 					if (typeof quizz[0] === "undefined") {
 						res.redirect("/");
-					} else {				
-						mysql.query(mysql.queries.getQuestions, [req.params.id]).then((questions) => { //fetch questions
-							mysql.query(mysql.queries.getAnswers, [req.params.id]).then((answers) => { //fetch answers
-								let data = {
-									title: quizz[0].label + " Results",
-									label: quizz[0].label,
-									username: req.user.username,
-									admin: req.user.admin,
-									quiz: req.params.id,
-									count: questions.length,
-									items: sortQuestionAnswers(questions, answers, results),
-									index: function() {
-										return function(array, render) {
-											return data[array].indexOf(this) + 1;
-										}
-									},
-								}
-								res.render("results", data)
-							}).catch((error) => {
-								console.log(error.message);
+					} else {
+						mysql.query(mysql.queries.getScore, [req.user.id, req.params.id]).then((score) => { //fetch quiz score
+							if (typeof score[0] === "undefined") {
 								res.redirect("/");
-							})
+							} else {
+								mysql.query(mysql.queries.getQuestions, [req.params.id]).then((questions) => { //fetch questions
+									mysql.query(mysql.queries.getAnswers, [req.params.id]).then((answers) => { //fetch answers
+										let data = {
+											title: quizz[0].label + " Results",
+											label: quizz[0].label,
+											username: req.user.username,
+											admin: req.user.admin,
+											quiz: req.params.id,
+											count: questions.length,
+											score: score[0].score,
+											percentage: Math.floor(score[0].score / questions.length * 100),
+											items: sortQuestionAnswers(questions, answers, results),
+											index: function() {
+												return function(array, render) {
+													return data[array].indexOf(this) + 1;
+												}
+											},
+										}
+										res.render("results", data)
+									}).catch((error) => {
+										console.log(error.message);
+										res.redirect("/");
+									});
+								}).catch((error) => {
+									console.log(error.message);
+									res.redirect("/");
+								});
+							}
 						}).catch((error) => {
 							console.log(error.message);
 							res.redirect("/");
-						})
+						});
 					}
 				}).catch((error) => {
 					console.log(error.message);
