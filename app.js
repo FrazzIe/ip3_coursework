@@ -427,6 +427,28 @@ app.post("/quiz/edit/:id/create", function(req, res) {
 	}
 });
 
+app.post("/quiz/edit/:id/title", function(req, res) {
+	if (req.isAuthenticated() && req.user.admin) { //check if logged in & is admin
+		if (req.body && req.body.label && req.body.label != "") { //check if params exist
+			if (!req.params.id || isNaN(req.params.id)) { //check if params exist
+				res.send("/");
+				return;
+			}
+
+			mysql.query(mysql.queries.updateQuiz, [req.body.label, req.params.id]).then((result) => { //update quiz title
+				res.send("/quiz/edit/" + req.params.id);
+			}).catch((error) => {
+				console.log(error.message);
+				res.send("/quiz/edit/" + req.params.id);
+			})
+		} else {
+			res.send("You can't enter a blank title");
+		}
+	} else {
+		res.send("/");
+	}
+});
+
 app.get("/quiz/edit/:quiz/fetch/:id", function(req, res) {
 	if (req.isAuthenticated() && req.user.admin) { //check if logged in & is admin
 		if (!req.params.id || isNaN(req.params.id) || !req.params.quiz || isNaN(req.params.quiz)) { //check if params exist
