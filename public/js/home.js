@@ -37,7 +37,7 @@ createForm.addEventListener("submit", function(event) { //add a listener for whe
 	}).then((resp) => {
 		if (resp.data) {
 			if (typeof resp.data != "string") {
-				window.location.href = "/quiz/edit/" + resp.data;
+				window.location.href = "/quiz/edit/" + resp.data.id;
 			} else {
 				$("#create-modal").modal("hide");
 				$("#errorModalTitle").text("An error occurred");
