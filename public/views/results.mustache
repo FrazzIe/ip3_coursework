@@ -7,7 +7,7 @@
 	<div class="container">
 		<div class="row align-items-center mt-2">		
 			<div class="col-6">
-				<h1 class="display-5 font-weight-bold" data-id="{{ quiz }}" id="quiz-id">{{ label }} Results</h1>
+				<h1 class="display-5 font-weight-bold mb-0" data-id="{{ quiz }}" id="quiz-id">{{ label }} Results</h1>
 			</div>
 			<div class="col-6">
 				<div class="float-right">
@@ -17,16 +17,16 @@
 						</div>
 						<div class="col-6">
 							<div class="float-right">
-								score
+								<h5 class="mb-0">{{ score }}/{{ count }} ({{ percentage }}%)</h5>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="row mt-1">
+		<div class="row mt-1 justify-content-center">
 		{{#items}}
-			<div class="col">
+			<div class="col-12 mt-3 mb-3">
 				<div class="card">
 					<div class="card-header">
 						{{#index}}items{{/index}}. {{ label }}
