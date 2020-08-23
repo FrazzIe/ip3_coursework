@@ -96,19 +96,27 @@ function addAnswerToList(elemPrefix, answerData) {
 	answerNode.childNodes[1].childNodes[0].setAttribute("id", textId);
 	answerNode.childNodes[1].childNodes[0].setAttribute("type", "text");
 	answerNode.childNodes[1].childNodes[0].setAttribute("value", answerLabel);
+	answerNode.childNodes[1].childNodes[0].setAttribute("pattern", "^(?=.{1,100}$)(?![\\s])(?!.*[\\s]{2})[a-zA-Z0-9\\s]+(?<![\\s])$");
+	answerNode.childNodes[1].childNodes[0].setAttribute("required", "");
 	answerNode.childNodes[1].appendChild(document.createElement("div"));
-	answerNode.childNodes[1].childNodes[1].classList.add("input-group-append");
-	answerNode.childNodes[1].childNodes[1].appendChild(document.createElement("button"));
-	answerNode.childNodes[1].childNodes[1].childNodes[0].classList.add("btn", "btn-danger");
-	answerNode.childNodes[1].childNodes[1].childNodes[0].setAttribute("type", "button");
+	answerNode.childNodes[1].childNodes[1].classList.add("valid-feedback", "order-last");
+	answerNode.childNodes[1].childNodes[1].textContent = "No issues!";
+	answerNode.childNodes[1].appendChild(document.createElement("div"));
+	answerNode.childNodes[1].childNodes[2].classList.add("invalid-feedback", "order-last");
+	answerNode.childNodes[1].childNodes[2].textContent = "Answer must be between 1 and 100 characters long";
+	answerNode.childNodes[1].appendChild(document.createElement("div"));
+	answerNode.childNodes[1].childNodes[3].classList.add("input-group-append");
+	answerNode.childNodes[1].childNodes[3].appendChild(document.createElement("button"));
+	answerNode.childNodes[1].childNodes[3].childNodes[0].classList.add("btn", "btn-danger");
+	answerNode.childNodes[1].childNodes[3].childNodes[0].setAttribute("type", "button");
 	if (answerData) {
-		answerNode.childNodes[1].childNodes[1].childNodes[0].onclick = function () { changeAnswerInList(answerNode) };
+		answerNode.childNodes[1].childNodes[3].childNodes[0].onclick = function () { changeAnswerInList(answerNode) };
 	} else {
-		answerNode.childNodes[1].childNodes[1].childNodes[0].onclick = function () { removeAnswerFromList(answerNode) };
+		answerNode.childNodes[1].childNodes[3].childNodes[0].onclick = function () { removeAnswerFromList(answerNode) };
 	}
-	answerNode.childNodes[1].childNodes[1].childNodes[0].appendChild(document.createElement("span"));
-	answerNode.childNodes[1].childNodes[1].childNodes[0].childNodes[0].setAttribute("aria-hidden", "true");
-	answerNode.childNodes[1].childNodes[1].childNodes[0].childNodes[0].innerHTML = "&times;";
+	answerNode.childNodes[1].childNodes[3].childNodes[0].appendChild(document.createElement("span"));
+	answerNode.childNodes[1].childNodes[3].childNodes[0].childNodes[0].setAttribute("aria-hidden", "true");
+	answerNode.childNodes[1].childNodes[3].childNodes[0].childNodes[0].innerHTML = "&times;";
 
 	answerList.appendChild(answerNode);
 }
@@ -152,6 +160,12 @@ function getAnswers(elemPrefix) {
 
 createForm.addEventListener("submit", function(event) { //add a listener for when the form is submitted
 	event.preventDefault(); //prevent default form behaviour
+
+	if (createForm.checkValidity() === false) {
+		event.stopPropagation();
+		createForm.classList.add("was-validated");		
+		return;
+	}
 
 	let quizElement = document.getElementById("quiz-id");
 
@@ -224,6 +238,12 @@ function editQuestion(id) {
 
 editForm.addEventListener("submit", function(event) { //add a listener for when the form is submitted
 	event.preventDefault(); //prevent default form behaviour
+
+	if (editForm.checkValidity() === false) {
+		event.stopPropagation();
+		editForm.classList.add("was-validated");		
+		return;
+	}
 
 	let quizElement = document.getElementById("quiz-id");
 	let questionElement = document.getElementById("edit-label");	
