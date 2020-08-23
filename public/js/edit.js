@@ -20,7 +20,6 @@
 </div>
 */
 
-const e = require("express");
 
 const createForm = document.getElementById("create-form");
 const editForm = document.getElementById("edit-form");
