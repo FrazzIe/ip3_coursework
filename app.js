@@ -238,6 +238,7 @@ app.get("/quiz/start/:id", function(req, res) {
 							username: req.user.username,
 							admin: req.user.admin,
 							quiz: req.params.id,
+							count: questions.length,
 							items: sortQuestionAnswers(questions, answers),
 							index: function() {
 								return function(array, render) {
