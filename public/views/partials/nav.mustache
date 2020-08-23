@@ -8,17 +8,17 @@
 	</button>
 
 	<div class="collapse navbar-collapse" id="nav-toggler">
-		<div class="row ml-auto">
+		<div class="row ml-auto align-items-center">
 			<div class="col">
 			{{#username}}
-				<span class="navbar-text">{{ username }}</span>
+				<span class="navbar-text text-center text-md-left">{{ username }}</span>
 			{{/username}}
 			{{^username}}
-				<span class="navbar-text">Unknown</span>
+				<span class="navbar-text text-center text-md-left">Unknown</span>
 			{{/username}}
 			</div>
 			<div class="col">
-				<form class="form-inline my-2 my-lg-0" id="logout-form" action="/logout" method="get">
+				<form class="form-inline my-2 my-lg-0 float-right float-md-none" id="logout-form" action="/logout" method="get">
 					<button type="submit" class="btn btn-danger">Logout</button>
 				</form>
 			</div>
