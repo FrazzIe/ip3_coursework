@@ -22,6 +22,7 @@ var queries = { //list of mysql queries
 	removeQuizAnswers: "DELETE quiz_answers FROM quiz_answers JOIN answers ON (quiz_answers.answer_id = answers.id) JOIN questions ON (answers.question_id = questions.id) WHERE questions.quiz_id = ? AND quiz_answers.user_id = ?",
 	addQuizAnswers: "INSERT INTO quiz_answers (`answer_id`, `user_id`) VALUES ?",
 	getQuizAnswers: "SELECT quiz_answers.id, quiz_answers.answer_id, quiz_answers.user_id FROM quiz_answers JOIN answers ON (quiz_answers.answer_id = answers.id) JOIN questions ON (answers.question_id = questions.id) WHERE questions.quiz_id = ? AND quiz_answers.user_id = ?",
+	getScore: "SELECT COUNT(quiz_answers.id) AS 'score' FROM quiz_answers JOIN answers ON (quiz_answers.answer_id = answers.id) JOIN questions ON (answers.question_id = questions.id) WHERE answers.is_correct = 1 AND quiz_answers.user_id = ? AND questions.quiz_id = ?",
 }
 
 function execute(sql, params) { //asynchronous sql execute function
