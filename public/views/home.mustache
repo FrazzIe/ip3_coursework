@@ -81,14 +81,14 @@
 							<div class="row">
 								<div class="col-sm-6">
 									{{#questions}}
-									<button type="button" class="btn btn-success">									
+									<a href="/quiz/start/{{ id }}" class="btn btn-success">									
 										{{#questions_answered}}
 											Retry
 										{{/questions_answered}}
 										{{^questions_answered}}
 											Start
 										{{/questions_answered}}
-									</button>
+									</a>
 										{{#admin}}
 											{{#questions_answered}}
 												<button type="button" class="btn btn-info">View Results</button>
@@ -155,14 +155,14 @@
 							<div class="card-footer align-items-center">
 								<div class="row">
 									<div class="col-sm-6">
-										<button type="button" class="btn btn-success">
+										<a href="/quiz/start/{{ id }}" class="btn btn-success">
 										{{#questions_answered}}
 											Retry
 										{{/questions_answered}}
 										{{^questions_answered}}
 											Start
 										{{/questions_answered}}
-										</button>
+										</a>
 										{{#admin}}
 											{{#questions_answered}}
 												<button type="button" class="btn btn-info">View Results</button>
