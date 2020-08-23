@@ -64,6 +64,23 @@
 			</div>
 		</div>
 		<div class="row mt-1">
+			<div class="col-12 mt-3">
+				<form id="quiz-form" novalidate>
+					<label for="quiz-title">Title</label>
+					<div class="input-group">
+						<input type="text" class="form-control" id="quiz-title" pattern="^(?=.{3,100}$)(?![\s])(?!.*[\s]{2})[a-zA-Z0-9\s]+(?<![\s])$" value="{{ label }}" required>
+						<div class="valid-feedback order-last">
+							No issues!
+						</div>
+						<div class="invalid-feedback order-last">
+							Title must be between 3 and 100 characters long
+						</div>
+						<div class="input-group-append">
+							<button type="submit" class="btn btn-info" id="quiz-btn">Change</button>
+						</div>
+					</div>
+				</form>
+			</div>
 		{{#items}}
 			<div class="col-12 col-md-6 mt-3 mb-3">
 				<div class="card">
