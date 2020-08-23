@@ -21,6 +21,7 @@ var queries = { //list of mysql queries
 	updateAnswers: "INSERT INTO answers (`id`, `question_id`, `label`, `is_correct`) VALUES ? ON DUPLICATE KEY UPDATE label = VALUES(`label`), is_correct = VALUES(`is_correct`)",
 	removeQuizAnswers: "DELETE quiz_answers FROM quiz_answers JOIN answers ON (quiz_answers.answer_id = answers.id) JOIN questions ON (answers.question_id = questions.id) WHERE questions.quiz_id = ? AND quiz_answers.user_id = ?",
 	addQuizAnswers: "INSERT INTO quiz_answers (`answer_id`, `user_id`) VALUES ?",
+	getQuizAnswers: "SELECT quiz_answers.id, quiz_answers.answer_id, quiz_answers.user_id JOIN answers ON (quiz_answers.answer_id = answers.id) JOIN questions ON (answers.question_id = questions.id) FROM quiz_answers WHERE questions.quiz_id = ? AND quiz_answers.user_id = ?",
 }
 
 function execute(sql, params) { //asynchronous sql execute function
