@@ -23,7 +23,7 @@ app.use(passport.initialize());
 app.use(passport.session()); //setup passport session
 app.use(bodyParser.json()); //parse json requests
 
-function sortQuestionAnswers(questions, answers) {
+function sortQuestionAnswers(questions, answers, results) {
 	let data = [];
 
 	for (let question = 0; question < questions.length; question++) {
@@ -34,6 +34,16 @@ function sortQuestionAnswers(questions, answers) {
 		for (let answer = 0; answer < answers.length; answer++) {
 			if (data[questionIdx - 1].id == answers[answer].question_id)
 				data[questionIdx - 1].answers.push(answers[answer]);
+		}
+	}
+
+	if (results && results.length > 0) {
+		for (let result = 0; result < results.length; result++) {
+			for (let answer = 0; answer < answers.length; answer++) {
+				if (results[result].answer_id == answers[answer].id) {
+					answers[answer].picked = true;
+				}
+			}
 		}
 	}
 
