@@ -13,7 +13,7 @@
 				<div class="float-right">
 					<div class="row align-items-center">
 						<div class="col-6">
-							<small class="text-muted text-nowrap">answers marked with &check; are correct</small>
+							<small class="text-muted text-nowrap">answers marked with <span class="text-success">&check;</span> are correct</small>
 						</div>
 						<div class="col-6">
 							<div class="float-right">
@@ -34,12 +34,30 @@
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item h6 mb-0">Possible Answers</li>
 					{{#answers}}
-						<li class="list-group-item">
-							{{ label }}
+						{{#picked}}
 							{{#is_correct}}
-								<span class="float-right">&check;</span>
+								<li class="list-group-item list-group-item-success">
+									{{ label }}
+									<span class="float-right">&check;</span>									
+								</li>
 							{{/is_correct}}
-						</li>
+							{{^is_correct}}
+								<li class="list-group-item list-group-item-danger">
+									{{ label }}
+								</li>	
+							{{/is_correct}}
+						{{/picked}}
+						{{^picked}}
+							<li class="list-group-item">
+								{{ label }}
+								{{#is_correct}}
+									<span class="float-right">&check;</span>	
+								{{/is_correct}}								
+							</li>
+						{{/picked}}
+						{{#is_correct}}
+
+						{{/is_correct}}
 					{{/answers}}
 					</ul>
 				</div>
