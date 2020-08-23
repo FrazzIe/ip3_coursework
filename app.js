@@ -55,6 +55,16 @@ function sortAnswers(answers, questionId) {
 	return data;
 }
 
+function sortQuizAnswers(answers, userId) {
+	let data = [];
+
+	for (let answer = 0; answer < answers.length; answer++) {
+		data.push([answers[answer], userId]);
+	}
+
+	return data;
+}
+
 app.listen(config.app.port, () => { //make app listen for port
 	console.log("quiz_manager listening on port " + config.app.port);
 });
