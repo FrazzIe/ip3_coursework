@@ -189,7 +189,6 @@ function editQuestion(id) {
 
 	let requestHandler = function(event) {
 		axios.get("/quiz/edit/" + quizElement.dataset.id + "/fetch/" + id).then((resp) => {
-			console.log(resp.data);
 			if (resp.data) {
 				if (typeof resp.data != "object") {
 					window.location.href = resp.data;
