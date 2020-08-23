@@ -9,4 +9,17 @@ function setFirstAnswerChecked() {
 	});
 }
 
+function getCheckedAnswers() {
+	let answers = [];
+	let elements = document.querySelectorAll("input[id^='quiz-answer-']");
+	elements.forEach(function(element) { 
+		if (element.checked) {
+			if (element.dataset && element.dataset.id) {
+				answers.push(element.dataset.id);
+			}
+		}
+	});
+
+	return answers;
+}
 setFirstAnswerChecked();

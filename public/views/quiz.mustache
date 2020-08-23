@@ -36,7 +36,7 @@
 					<div class="list-group list-group-flush">
 						<label class="list-group-item mb-0">Select an answer</label>				
 						{{#answers}}
-							<input type="radio" name="quiz-question-{{ question_id }}" id="quiz-answer-{{ id }}"/>
+							<input type="radio" name="quiz-question-{{ question_id }}" id="quiz-answer-{{ id }}" data-id="{{ id }}"/>
 							<label class="list-group-item mb-0" for="quiz-answer-{{ id }}">{{ label }}</label>
 						{{/answers}}
 					</div>
