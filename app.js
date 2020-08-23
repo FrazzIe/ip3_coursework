@@ -478,24 +478,24 @@ app.post("/quiz/edit/:quiz/edit/:id", function(req, res) {
 									mysql.query(mysql.queries.updateAnswers, [sortAnswers(req.body.changedAnswers, req.params.id)]).then((result) => { //update answers
 										if (createAnswers) {
 											mysql.query(mysql.queries.createAnswers, [sortAnswers(req.body.newAnswers, req.params.id)]).then((result) => { //create answers
-												//return to edit page
+												res.send("/quiz/edit/" + req.params.quiz); //return to edit page
 											}).catch((error) => {
 												console.log(error);
 											});	
 										} else {
-											//return to edit page
+											res.send("/quiz/edit/" + req.params.quiz); //return to edit page
 										}
 									}).catch((error) => {
 										console.log(error);
 									});
 								} else if (createAnswers) {
 									mysql.query(mysql.queries.createAnswers, [sortAnswers(req.body.newAnswers, req.params.id)]).then((result) => { //create answers
-										//return to edit page
+										res.send("/quiz/edit/" + req.params.quiz); //return to edit page
 									}).catch((error) => {
 										console.log(error);
 									});
 								} else {
-									//return to edit page
+									res.send("/quiz/edit/" + req.params.quiz); //return to edit page
 								}
 							}).catch((error) => {
 								console.log(error.message);	
@@ -504,19 +504,19 @@ app.post("/quiz/edit/:quiz/edit/:id", function(req, res) {
 							mysql.query(mysql.queries.updateAnswers, [sortAnswers(req.body.changedAnswers, req.params.id)]).then((result) => { //update answers
 								if (createAnswers) {
 									mysql.query(mysql.queries.createAnswers, [sortAnswers(req.body.newAnswers, req.params.id)]).then((result) => { //create answers
-										//return to edit page
+										res.send("/quiz/edit/" + req.params.quiz); //return to edit page
 									}).catch((error) => {
 										console.log(error);
 									});
 								} else {
-									//return to edit page
+									res.send("/quiz/edit/" + req.params.quiz); //return to edit page
 								}
 							}).catch((error) => {
 								console.log(error.message);	
 							});	
 						} else if (createAnswers) {
 							mysql.query(mysql.queries.createAnswers, [sortAnswers(req.body.newAnswers, req.params.id)]).then((result) => { //create answers
-								//return to edit page
+								res.send("/quiz/edit/" + req.params.quiz); //return to edit page
 							}).catch((error) => {
 								console.log(error);
 							});
