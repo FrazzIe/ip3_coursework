@@ -7,15 +7,27 @@
 	<div class="container">
 		<div class="row h-100">
 			<div class="col-12 col-sm-10 col-md-8 col-lg-5 mx-auto align-self-center">
-				<form id="auth-form">
+				<form id="auth-form" novalidate>
 					<h1 class="text-center display-4 font-weight-bold">Quiz Manager</h1>
 					<div class="form-group">
 						<label for="auth-username">Username</label>
-						<input type="text" class="form-control" id="auth-username">
+						<input type="text" class="form-control" id="auth-username" pattern="^(?=.{1,30}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$" required>
+						<div class="valid-feedback">
+							No issues!
+						</div>
+						<div class="invalid-feedback">
+							Username must be at least 1-30 characters long and have no spaces
+						</div>
 					</div>
 					<div class="form-group">
 						<label for="auth-password">Password</label>
-						<input type="password" class="form-control" id="auth-password">
+						<input type="password" class="form-control" id="auth-password" required>
+						<div class="valid-feedback">
+							No issues!
+						</div>
+						<div class="invalid-feedback">
+							A password is required!
+						</div>
 					</div>
 
 					<div class="form-group d-flex">

@@ -3,6 +3,12 @@ const authForm = document.getElementById("auth-form"); //get auth-form element
 authForm.addEventListener("submit", (event) => { //add a listener for when the form is submitted
 	event.preventDefault(); //prevent default form behaviour
 
+	if (authForm.checkValidity() === false) {
+		event.stopPropagation();
+		authForm.classList.add("was-validated");		
+		return;
+	}
+
 	let action = event.submitter.id.replace("auth-", ""); //get the action type from the button pressed
 
 	if (action != "login" && action != "register")
