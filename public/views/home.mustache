@@ -25,11 +25,17 @@
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							<form id="create-form">
+							<form id="create-form" novalidate>
 								<div class="modal-body">
 									<div class="form-group">
 										<label for="create-label">Title</label>
-										<input type="text" class="form-control" id="create-label">
+										<input type="text" class="form-control" id="create-label" pattern="^(?=.{3,100}$)(?![\s])(?!.*[\s]{2})[a-zA-Z0-9\s]+(?<![\s])$" required>
+										<div class="valid-feedback">
+											No issues!
+										</div>
+										<div class="invalid-feedback">
+											Title must be between 3 and 100 characters long
+										</div>
 									</div>
 								</div>
 								<div class="modal-footer">

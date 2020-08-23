@@ -32,6 +32,12 @@ setQuizPercentages();
 createForm.addEventListener("submit", function(event) { //add a listener for when the form is submitted
 	event.preventDefault(); //prevent default form behaviour
 
+	if (createForm.checkValidity() === false) {
+		event.stopPropagation();
+		createForm.classList.add("was-validated");		
+		return;
+	}
+
 	axios.post("/quiz/create", { //make a request to the server
 		label: document.getElementById("create-label").value,
 	}).then((resp) => {
