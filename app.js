@@ -297,3 +297,84 @@ app.get("/quiz/edit/:quiz/fetch/:id", function(req, res) {
 		res.send("/");
 	}
 });
+
+app.post("/quiz/edit/:quiz/edit/:id", function(req, res) {
+	if (req.isAuthenticated() && req.user.admin) { //check if logged in & is admin
+		if (req.body && req.body.label && req.body.label != "") { //check if params exist
+			if (req.body.newAnswers && req.body.deletedAnswers && req.body.changedAnswers) {
+				if (req.body.newAnswers.length > 0 || req.body.changedAnswers.length > 0) { //check if there is at least one answer
+					if (!req.params.id || isNaN(req.params.id) || !req.params.quiz || isNaN(req.params.quiz)) { //check if params exist
+						res.send("/");
+						return;
+					}
+
+					let deleteAnswers = req.body.deletedAnswers.length > 0;
+					let updateAnswers = req.body.changedAnswers.length > 0;
+					let createAnswers = req.body.newAnswers.length > 0; //only execute queries that need to be executed
+
+					mysql.query(mysql.queries.updateQuestion, [req.body.label, req.params.id]).then((result) => { //update question label
+						if (deleteAnswers) { //aids
+							mysql.query(mysql.queries.deleteAnswers, [req.body.deletedAnswers]).then((result) => { //delete answers
+								if (updateAnswers) {
+									mysql.query(mysql.queries.updateAnswers, [sortAnswers(req.body.changedAnswers, req.params.id)]).then((result) => { //update answers
+										if (createAnswers) {
+											mysql.query(mysql.queries.createAnswers, [sortAnswers(req.body.newAnswers, req.params.id)]).then((result) => { //create answers
+												//return to edit page
+											}).catch((error) => {
+												console.log(error);
+											});	
+										} else {
+											//return to edit page
+										}
+									}).catch((error) => {
+										console.log(error);
+									});
+								} else if (createAnswers) {
+									mysql.query(mysql.queries.createAnswers, [sortAnswers(req.body.newAnswers, req.params.id)]).then((result) => { //create answers
+										//return to edit page
+									}).catch((error) => {
+										console.log(error);
+									});
+								} else {
+									//return to edit page
+								}
+							}).catch((error) => {
+								console.log(error.message);	
+							});	
+						} else if (updateAnswers) {
+							mysql.query(mysql.queries.updateAnswers, [sortAnswers(req.body.changedAnswers, req.params.id)]).then((result) => { //update answers
+								if (createAnswers) {
+									mysql.query(mysql.queries.createAnswers, [sortAnswers(req.body.newAnswers, req.params.id)]).then((result) => { //create answers
+										//return to edit page
+									}).catch((error) => {
+										console.log(error);
+									});
+								} else {
+									//return to edit page
+								}
+							}).catch((error) => {
+								console.log(error.message);	
+							});	
+						} else if (createAnswers) {
+							mysql.query(mysql.queries.createAnswers, [sortAnswers(req.body.newAnswers, req.params.id)]).then((result) => { //create answers
+								//return to edit page
+							}).catch((error) => {
+								console.log(error);
+							});
+						}
+					}).catch((error) => {
+						console.log(error.message);
+					});	
+				} else {
+					res.send("You must have at least 1 answer");
+				}
+			} else {
+				res.send("An error occurred, couldn't find any answers!");
+			}
+		} else {
+			res.send("You can't enter a blank question");
+		}
+	} else {
+		res.send("/");
+	}
+});
