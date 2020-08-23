@@ -44,7 +44,12 @@ function sortAnswers(answers, questionId) {
 	let data = [];
 
 	for (let answer = 0; answer < answers.length; answer++) {
-		data.push([questionId, answers[answer].label, answers[answer].correct ? 1 : 0]);
+		let item = [];
+		
+		if (answers[answer].id) item.push(answers[answer].id);
+
+		item.push(questionId, answers[answer].label, answers[answer].correct ? 1 : 0)
+		data.push(item);
 	}
 
 	return data;
