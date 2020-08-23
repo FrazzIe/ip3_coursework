@@ -242,7 +242,7 @@ app.post("/quiz/edit/:id/create", function(req, res) {
 		if (req.body && req.body.label && req.body.label != "") { //check if params exist
 			if (req.body.answers && req.body.answers.length > 0) {
 				if (!req.params.id || isNaN(req.params.id)) { //check if params exist
-					res.redirect("/");
+					res.send("/");
 					return;
 				}
 
@@ -264,7 +264,7 @@ app.post("/quiz/edit/:id/create", function(req, res) {
 			res.send("You can't enter a blank question");
 		}
 	} else {
-		res.redirect("/");
+		res.send("/");
 	}
 });
 

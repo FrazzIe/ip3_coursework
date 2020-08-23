@@ -20,6 +20,8 @@
 </div>
 */
 
+const e = require("express");
+
 const createForm = document.getElementById("create-form");
 const editForm = document.getElementById("edit-form");
 
@@ -166,12 +168,16 @@ createForm.addEventListener("submit", function(event) { //add a listener for whe
 	}).then((resp) => {
 		if (resp.data) {
 			if (typeof resp.data != "string") {
-				window.location.href = "/quiz/edit/" + resp.data;
+				location.reload();
 			} else {
-				$("#create-modal").modal("hide");
-				$("#errorModalTitle").text("An error occurred");
-				$("#errorModalText").text(resp.data);
-				$("#errorModal").modal("show"); //display warning
+				if (resp.data.startsWith("/")) {
+					location.href = resp.data;
+				} else {
+					$("#create-modal").modal("hide");
+					$("#errorModalTitle").text("An error occurred");
+					$("#errorModalText").text(resp.data);
+					$("#errorModal").modal("show"); //display warning
+				}
 			}
 		}
 	}).catch((error) => {
