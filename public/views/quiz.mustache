@@ -1,0 +1,52 @@
+<head>
+	{{>header}}
+	<link rel="stylesheet" href="/../../css/quiz.css">
+</head>
+
+<body>
+	{{>nav}}
+	{{>alert}}
+	<div class="container">
+		<div class="row align-items-center mt-2">		
+			<div class="col-6">
+				<h1 class="display-5 font-weight-bold" data-id="{{ quiz }}" id="quiz-id">{{ label }}</h1>
+			</div>
+			<div class="col-6">
+				<div class="float-right">
+					<div class="row align-items-center">
+						<div class="col-6">
+							<small class="text-muted text-nowrap">make sure you answer all questions</small>
+						</div>
+						<div class="col-6">
+							<div class="float-right">
+								<button type="button" class="btn btn-info">Finish</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-1">
+		{{#items}}
+			<div class="col">
+				<div class="card">
+					<div class="card-header">
+						{{#index}}items{{/index}}. {{ label }}
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item h6">Possible Answers</li>
+					{{#answers}}
+						<input type="radio" name="RadioInputName" value="Value1" id="Radio1" />
+  						<label class="list-group-item" for="Radio1">Caption for Radio1</label>
+					{{/answers}}
+					</ul>
+					<div class="card-footer align-items-center">
+
+					</div>
+				</div>
+			</div>
+		{{/items}}
+		</div>
+	</div>
+	{{>footer}}
+</body>
