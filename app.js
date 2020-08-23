@@ -219,6 +219,51 @@ app.get("/quiz/edit/:id", function(req, res) {
 	}
 });
 
+app.get("/quiz/start/:id", function(req, res) {
+	if (req.isAuthenticated()) { //check if logged in
+		if (!req.params.id || isNaN(req.params.id)) { //check if params exist
+			res.redirect("/");
+			return;
+		}
+
+		mysql.query(mysql.queries.getQuiz, [req.params.id]).then((quizz) => { //fetch quiz
+			if (typeof quizz[0] === "undefined") {
+				res.redirect("/");
+			} else {
+				mysql.query(mysql.queries.getQuestions, [req.params.id]).then((questions) => { //fetch questions
+					mysql.query(mysql.queries.getAnswers, [req.params.id]).then((answers) => { //fetch answers
+						let data = {
+							title: "Answering " + quizz[0].label,
+							label: quizz[0].label,
+							username: req.user.username,
+							admin: req.user.admin,
+							quiz: req.params.id,
+							items: sortQuestionAnswers(questions, answers),
+							index: function() {
+								return function(array, render) {
+									return data[array].indexOf(this) + 1;
+								}
+							},
+						}
+						res.render("quiz", data)
+					}).catch((error) => {
+						console.log(error.message);
+						res.redirect("/");
+					})
+				}).catch((error) => {
+					console.log(error.message);
+					res.redirect("/");
+				})
+			}
+		}).catch((error) => {
+			console.log(error.message);
+			res.redirect("/");
+		});
+	} else {
+		res.redirect("/");
+	}
+});
+
 app.get("/quiz/edit/:quiz/delete/:id", function(req, res) {
 	if (req.isAuthenticated() && req.user.admin) { //check if logged in & is admin
 		if (!req.params.id || isNaN(req.params.id) || !req.params.quiz || isNaN(req.params.quiz)) { //check if params exist
