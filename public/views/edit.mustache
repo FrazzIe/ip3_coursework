@@ -9,14 +9,14 @@
 	{{>loader}}
 	<div class="container">
 		<div class="row align-items-center mt-2">		
-			<div class="col-6">
-				<h1 class="display-5 font-weight-bold" data-id="{{ quiz }}" id="quiz-id">Editing {{ label }}</h1>
+			<div class="col-12 col-md-6">
+				<h1 class="display-5 font-weight-bold mb-0 text-center text-md-left" data-id="{{ quiz }}" id="quiz-id">Editing {{ label }}</h1>
 			</div>
-			<div class="col-6">
-				<div class="float-right">
+			<div class="col-12 col-md-6">
+				<div class="float-none float-md-right">
 					<div class="row align-items-center">
 						<div class="col-6">
-							<small class="text-muted text-nowrap">answers marked with &check; are correct</small>
+							<small class="text-muted text-nowrap float-left float-md-none">answers marked with &check; are correct</small>
 						</div>
 						<div class="col-6">
 							<div class="float-right">
@@ -65,7 +65,7 @@
 		</div>
 		<div class="row mt-1">
 		{{#items}}
-			<div class="col">
+			<div class="col-12 col-md-6 mt-3 mb-3">
 				<div class="card">
 					<div class="card-header">
 						{{#index}}items{{/index}}. {{ label }}
@@ -82,15 +82,10 @@
 					{{/answers}}
 					</ul>
 					<div class="card-footer align-items-center">
-						<div class="row">
-							<div class="col-sm-6">
-								<button type="button" class="btn btn-info" id="edit-btn-{{ id }}" onclick="editQuestion({{ id }})">Edit</button>
-							</div>
-							<div class="col-sm-6">
-								<div class="float-right">
-									<a href="/quiz/edit/{{ quiz }}/delete/{{ id }}"class="btn btn-danger">Delete</a>
-								</div>
-							</div>
+						<button type="button" class="btn btn-info" id="edit-btn-{{ id }}" onclick="editQuestion({{ id }})">Edit</button>
+
+						<div class="float-right">
+							<a href="/quiz/edit/{{ quiz }}/delete/{{ id }}"class="btn btn-danger">Delete</a>
 						</div>
 					</div>
 				</div>
