@@ -275,6 +275,33 @@ app.get("/quiz/start/:id", function(req, res) {
 	}
 });
 
+app.post("/quiz/finish/:id", function(req, res) {
+	if (req.isAuthenticated()) { //check if logged in
+		if (req.body && req.body.answers) { //check if params exist
+			if (!req.params.id || isNaN(req.params.id)) { //check if params exist
+				res.send("/");
+				return;
+			}
+
+			mysql.query(mysql.queries.removeQuizAnswers, [req.params.id, req.user.id]).then(() => { //delete previous answers if any exist
+				mysql.query(mysql.queries.addQuizAnswers, [sortQuizAnswers(req.body.answers, req.user.id)]).then(() => { //add quiz answers
+					res.send("/quiz/results/" + req.params.id);
+				}).catch((error) => {
+					console.log(error.message);
+					res.send("/");
+				});
+			}).catch((error) => {
+				console.log(error.message);
+				res.send("/");
+			});
+		} else {
+			res.send("There was an issue with the answers you submitted!");
+		}
+	} else {
+		res.send("/");
+	}
+});
+
 app.get("/quiz/edit/:quiz/delete/:id", function(req, res) {
 	if (req.isAuthenticated() && req.user.admin) { //check if logged in & is admin
 		if (!req.params.id || isNaN(req.params.id) || !req.params.quiz || isNaN(req.params.quiz)) { //check if params exist
