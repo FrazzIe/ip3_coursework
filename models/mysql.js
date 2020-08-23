@@ -9,6 +9,7 @@ var queries = { //list of mysql queries
 	createQuiz: "INSERT INTO quiz (`user_id`, `label`) VALUES (?, ?)",
 	getQuiz: "SELECT quiz.id, quiz.label FROM quiz WHERE quiz.id = ?",
 	deleteQuiz: "DELETE FROM quiz WHERE quiz.id = ?",
+	updateQuiz: "UPDATE quiz SET quiz.label = ? WHERE quiz.id = ?",
 	createQuestion: "INSERT INTO questions (`quiz_id`, `label`) VALUES (?, ?)",
 	getQuestions: "SELECT questions.id, questions.quiz_id, questions.label FROM questions WHERE questions.quiz_id = ?",
 	getQuestion: "SELECT questions.id, questions.quiz_id, questions.label FROM questions WHERE questions.id = ?",
