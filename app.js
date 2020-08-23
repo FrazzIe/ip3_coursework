@@ -188,7 +188,7 @@ app.get("/quiz/edit/:id", function(req, res) {
 				mysql.query(mysql.queries.getQuestions, [req.params.id]).then((questions) => { //fetch questions
 					mysql.query(mysql.queries.getAnswers, [req.params.id]).then((answers) => { //fetch answers
 						let data = {
-							title:"Edit " + quizz[0].label,
+							title: "Editing " + quizz[0].label,
 							label: quizz[0].label,
 							username: req.user.username,
 							admin: req.user.admin,
