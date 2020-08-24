@@ -1,4 +1,4 @@
-const finishBtn = document.getElementById("finish-btn");
+const finishBtns = document.querySelectorAll("button[id^='finish-btn-']");
 
 // function setFirstAnswerChecked() {
 // 	let elements = document.querySelectorAll("input[id^='quiz-answer-']");
@@ -25,41 +25,42 @@ function getCheckedAnswers() {
 	return answers;
 }
 
-finishBtn.addEventListener("click", function(event) {
-	let quizElement = document.getElementById("quiz-id");
+finishBtns.forEach(function(finishBtn) { 
+	finishBtn.addEventListener("click", function(event) {
+		let quizElement = document.getElementById("quiz-id");
 
-	if (!quizElement.dataset || !quizElement.dataset.id || !quizElement.dataset.count) {
-		location.reload();
-		return;
-	}
+		if (!quizElement.dataset || !quizElement.dataset.id || !quizElement.dataset.count) {
+			location.reload();
+			return;
+		}
 
-	let answers = getCheckedAnswers();
+		let answers = getCheckedAnswers();
 
-	if (answers.length == quizElement.dataset.count) {
-		axios.post("/quiz/finish/" + quizElement.dataset.id, { //make a request to the server
-			answers: answers,
-		}).then((resp) => {
-			if (resp.data) {
-				if (typeof resp.data != "string") {
-					location.reload();
-				} else {
-					if (resp.data.startsWith("/")) {
-						location.href = resp.data;
+		if (answers.length == quizElement.dataset.count) {
+			axios.post("/quiz/finish/" + quizElement.dataset.id, { //make a request to the server
+				answers: answers,
+			}).then((resp) => {
+				if (resp.data) {
+					if (typeof resp.data != "string") {
+						location.reload();
 					} else {
-						$("#errorModalTitle").text("An error occurred");
-						$("#errorModalText").text(resp.data);
-						$("#errorModal").modal("show"); //display warning
+						if (resp.data.startsWith("/")) {
+							location.href = resp.data;
+						} else {
+							$("#errorModalTitle").text("An error occurred");
+							$("#errorModalText").text(resp.data);
+							$("#errorModal").modal("show"); //display warning
+						}
 					}
 				}
-			}
-		}).catch((error) => {
-			console.log(error);
-		});
-	} else {
-		$("#errorModalTitle").text("An error occurred");
-		$("#errorModalText").text("You must answer all questions!");
-		$("#errorModal").modal("show"); //display warning
-	}
+			}).catch((error) => {
+				console.log(error);
+			});
+		} else {
+			$("#errorModalTitle").text("An error occurred");
+			$("#errorModalText").text("You must answer all questions!");
+			$("#errorModal").modal("show"); //display warning
+		}
+	});
 });
-
 // setFirstAnswerChecked();
