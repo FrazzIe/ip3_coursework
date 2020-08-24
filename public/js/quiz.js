@@ -1,15 +1,15 @@
 const finishBtn = document.getElementById("finish-btn");
 
-function setFirstAnswerChecked() {
-	let elements = document.querySelectorAll("input[id^='quiz-answer-']");
-	let dupeList = {};
-	elements.forEach(function(element) { 
-		if (!dupeList[element.name]) {
-			dupeList[element.name] = true;
-			element.checked = true
-		}
-	});
-}
+// function setFirstAnswerChecked() {
+// 	let elements = document.querySelectorAll("input[id^='quiz-answer-']");
+// 	let dupeList = {};
+// 	elements.forEach(function(element) { 
+// 		if (!dupeList[element.name]) {
+// 			dupeList[element.name] = true;
+// 			element.checked = true
+// 		}
+// 	});
+// }
 
 function getCheckedAnswers() {
 	let answers = [];
@@ -35,7 +35,7 @@ finishBtn.addEventListener("click", function(event) {
 
 	let answers = getCheckedAnswers();
 
-	if (answers.length == quizElement.dataset.count) { //this shouldn't happen
+	if (answers.length == quizElement.dataset.count) {
 		axios.post("/quiz/finish/" + quizElement.dataset.id, { //make a request to the server
 			answers: answers,
 		}).then((resp) => {
@@ -62,4 +62,4 @@ finishBtn.addEventListener("click", function(event) {
 	}
 });
 
-setFirstAnswerChecked();
+// setFirstAnswerChecked();
